@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Technical Documentation
+title: Local Development
 nav_order: 1
 has_children: true
 permalink: /docs/technical/local-development
