@@ -12,8 +12,7 @@ permalink: /docs/technical/local-development
 
 ### Prerequisites
 
-1. Docker 
-   1. In order to follow the standard installation guide, you must have Docker installed. 
+**Docker:** In order to follow the standard installation guide, you must have Docker installed.
 
 ### Clone repository
 The codebase is hosted on GitHub at [github.com/fhict-skilltree/backend-application](https://github.com/fhict-skilltree/backend-application).
@@ -33,3 +32,11 @@ sh setup-dev.sh
 ```
 
 This script will build and start the Docker containers and execute the necessary steps to have a basic working application.
+
+### Running commands in the PHP service
+
+If you want to execute scripts or run commands, you need to open up a shell process in the PHP container. You can do that as follows:
+
+```shell
+docker compose exec php sh
+```
