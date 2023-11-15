@@ -1,9 +1,9 @@
 ---
 layout: default
-title: Technical Documentation
+title: Functional Documentation
 nav_order: 3
 has_children: true
-permalink: /docs/technical
+permalink: /docs/functional
 ---
 
 # Technical Documentation
