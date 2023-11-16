@@ -3,10 +3,6 @@ FROM php:8.2-fpm-alpine as base
 ARG BUILD_GID=1000
 ARG BUILD_UID=1000
 
-# Set the locale
-ENV MUSL_LOCALE_DEPS cmake make musl-dev gcc gettext-dev libintl
-ENV MUSL_LOCPATH /usr/share/i18n/locales/musl
-
 # Install packages
 RUN --mount=type=cache,target=/var/cache/apk apk --update add \
     git  \
@@ -16,19 +12,7 @@ RUN --mount=type=cache,target=/var/cache/apk apk --update add \
     npm \
     shadow \
     patch \
-    openssh \
-    $MUSL_LOCALE_DEPS \
-    && wget https://gitlab.com/rilian-la-te/musl-locales/-/archive/master/musl-locales-master.zip \
-    && unzip musl-locales-master.zip \
-    && cd musl-locales-master \
-    && cmake -DLOCALE_PROFILE=OFF -D CMAKE_INSTALL_PREFIX:PATH=/usr . && make && make install \
-    && cd .. \
-    && rm -r musl-locales-master
-
-ENV LANG=nl_NL.UTF-8 \
-    LANGUAGE=nl_NL.UTF-8 \
-    LC_TIME=nl_NL.UTF-8 \
-    LC_ALL=nl_NL.UTF-8
+    openssh
 
 RUN groupdel dialout && groupmod -g ${BUILD_GID} www-data && usermod -s /bin/sh -g ${BUILD_GID} -u ${BUILD_UID} www-data
 
