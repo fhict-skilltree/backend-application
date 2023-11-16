@@ -3,13 +3,40 @@ version: "3.9"
 services:
   php:
     build:
+      target: local
       context: ./
       dockerfile: docker/php/Dockerfile
     working_dir: /var/www/html
+    depends_on:
+      - mysql
     volumes:
       - ./:/var/www/html:cached
       - ./public:/var/www/html/public:delegated
-      - /etc/localtime:/etc/localtime:ro
+
+  nginx:
+    image: wodby/nginx
+    depends_on:
+      - php
+    environment:
+      NGINX_STATIC_OPEN_FILE_CACHE: "off"
+      NGINX_ERROR_LOG_LEVEL: debug
+      NGINX_BACKEND_HOST: php
+      NGINX_VHOST_PRESET: php
+      NGINX_SERVER_ROOT: /var/www/html/public
+    volumes:
+      - ./public:/var/www/html/public:delegated
+      - ./node_modules:/var/www/html/node_modules:delegated
+    networks:
+      - default
+      - traefik-gateway
+    labels:
+      - "traefik.enable=true"
+      - "traefik.docker.network=traefik-gateway"
+      - "traefik.http.routers.skilltree-backend-nginx.rule=Host(``)"
+      - "traefik.http.routers.skilltree-backend-nginx.rule=HostRegexp(`skilltree-backend.localhost`, `{[a-z]+}.skilltree-backend.localhost`)"
+      - "traefik.http.routers.skilltree-backend-nginx.priority=1"
+      - "traefik.http.routers.skilltree-backend-nginx.entrypoints=https"
+      - "traefik.http.routers.skilltree-backend-nginx.tls=true"
 
   mysql:
     image: mysql/mysql-server:8.0
@@ -29,3 +56,8 @@ services:
 volumes:
   mysql:
     driver: local
+
+networks:
+  traefik-gateway:
+    name: traefik-gateway
+    external: true

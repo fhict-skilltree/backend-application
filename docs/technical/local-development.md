@@ -12,7 +12,13 @@ permalink: /docs/technical/local-development
 
 ### Prerequisites
 
-**Docker:** In order to follow the standard installation guide, you must have Docker installed.
+**Docker:**
+
+In order to follow the standard installation guide, you must have Docker installed.
+
+**Running Traefik Gateway:**
+
+We use Traefik to manage the networking configuration for the services. You can follow the installation instructions at [Traefik Gateway](/docs/technical/traefik-gateway).
 
 ### Clone repository
 The codebase is hosted on GitHub at [github.com/fhict-skilltree/backend-application](https://github.com/fhict-skilltree/backend-application).
