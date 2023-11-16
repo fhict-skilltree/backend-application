@@ -5,3 +5,8 @@ services:
     build:
       context: ./
       dockerfile: docker/php/Dockerfile
+    working_dir: /var/www/html
+    volumes:
+      - ./:/var/www/html:cached
+      - ./public:/var/www/html/public:delegated
+      - /etc/localtime:/etc/localtime:ro
