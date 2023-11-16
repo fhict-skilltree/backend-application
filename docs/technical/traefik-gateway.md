@@ -34,7 +34,7 @@ We have created a shell script to start the Traefik gateway. Run the following c
 sh start.sh
 ```
 
-You can visit the Traefik dashboard at: https://traefik.localhost/
+You can visit the Traefik dashboard at: [https://traefik.localhost/](https://traefik.localhost/)
 
 ### Stop the service
 
