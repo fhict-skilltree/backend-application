@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Local Development
+title: Traefik Gateway
 nav_order: 2
 parent: Technical Documentation
 permalink: /docs/technical/traefik-gateway
