@@ -31,7 +31,13 @@ We have created a shell script to automate the building and installation process
 sh setup-dev.sh
 ```
 
-This script will build and start the Docker containers and execute the necessary steps to have a basic working application.
+This script will perform all the necessary steps to set up the application locally and make it ready for development.
+
+The following things will be done automatically:
+* Create .env if it does not exist yet
+* Link the storage directory when you are installing it for the first time
+* Run the database migrations
+* Starts a shell session in the PHP application container
 
 ### Running commands in the PHP service
 

@@ -10,3 +10,22 @@ services:
       - ./:/var/www/html:cached
       - ./public:/var/www/html/public:delegated
       - /etc/localtime:/etc/localtime:ro
+
+  mysql:
+    image: mysql/mysql-server:8.0
+    command: --max_allowed_packet=32505856
+    working_dir: /application
+    environment:
+      MYSQL_DATABASE: skilltree
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_USER: skilltree
+      MYSQL_PASSWORD: skilltree
+    volumes:
+      - mysql:/var/lib/mysql
+      - ./docker/mysql/init:/docker-entrypoint-initdb.d
+    ports:
+      - "127.0.0.1:40201:3306"
+
+volumes:
+  mysql:
+    driver: local
