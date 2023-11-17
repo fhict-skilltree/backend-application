@@ -73,3 +73,19 @@ composer run pint-test
 # Test the code style of the changes you made
 composer run pint-test-dirty
 ```
+
+## Static code analyses (PHPStan)
+
+We've implemented Larastan (PHPStan) to analyse our code statically. It will search for type errors in the codebase.
+
+To run the static code analyses locally, you can run:
+
+```shell
+composer run analyse
+```
+
+To generate a new baseline, you can run:
+
+```shell
+composer run analyse-baseline
+```
