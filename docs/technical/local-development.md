@@ -52,3 +52,24 @@ If you want to execute scripts or run commands, you need to open up a shell proc
 ```shell
 docker compose exec php sh
 ```
+
+
+## Code style
+
+We've implemented a code style checker and fixer called Laravel Pint, which is a wrapper around PHP-CS-Fixer.
+
+The following composer scripts can be run:
+
+```shell
+# To fix the codebase code style
+composer run pint
+
+# Fix code style on the changes you made
+composer run pint-dirty
+
+# Test the code style of the codebase
+composer run pint-test
+
+# Test the code style of the changes you made
+composer run pint-test-dirty
+```
