@@ -17,6 +17,7 @@
         "laravel/sail": "^1.18",
         "mockery/mockery": "^1.4.4",
         "nunomaduro/collision": "^7.0",
+        "nunomaduro/larastan": "^2.0",
         "phpunit/phpunit": "^10.1",
         "spatie/laravel-ignition": "^2.0"
     },
@@ -40,6 +41,8 @@
         "pint-dirty": "./vendor/bin/pint --dirty",
         "pint-test": "./vendor/bin/pint --test",
         "pint-test-dirty": "./vendor/bin/pint --test --dirty",
+        "analyse": "./vendor/bin/phpstan analyse --memory-limit=2G",
+        "analyse-baseline": "./vendor/bin/phpstan analyse --generate-baseline phpstan-baseline.php --memory-limit=2G",
         "post-autoload-dump": [
             "Illuminate\\Foundation\\ComposerScripts::postAutoloadDump",
             "@php artisan package:discover --ansi"
