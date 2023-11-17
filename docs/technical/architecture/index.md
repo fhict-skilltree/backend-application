@@ -3,6 +3,7 @@ layout: default
 title: Software Architecture
 nav_order: 3
 has_children: true
+parent: Technical Documentation
 permalink: /docs/technical/architecture
 ---
 

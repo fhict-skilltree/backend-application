@@ -81,6 +81,10 @@ jobs:
           DB_PORT: ${{ job.services.mysql.ports['3306'] }}
           REDIS_PORT: ${{ job.services.redis.ports['6379'] }}
 
+      - name: Static analyses with Larastan (PHPStan)
+        run: composer run analyse
+        continue-on-error: true
+
       - name: Upload coverage to Codecov
         uses: codecov/codecov-action@v4-beta
         env:
