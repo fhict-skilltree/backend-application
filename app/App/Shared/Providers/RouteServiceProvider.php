@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Shared\Providers;
 
 use Illuminate\Cache\RateLimiting\Limit;
+use Illuminate\Config\Repository as ConfigRepository;
 use Illuminate\Foundation\Support\Providers\RouteServiceProvider as ServiceProvider;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\RateLimiter;
@@ -30,9 +31,11 @@ class RouteServiceProvider extends ServiceProvider
             return Limit::perMinute(60)->by($request->user()?->id ?: $request->ip());
         });
 
-        $this->routes(function () {
+        $configRepository = $this->app->get(ConfigRepository::class);
+
+        $this->routes(function () use ($configRepository) {
             Route::middleware('api')
-                ->prefix('api')
+                ->domain($configRepository->get('app.domain'))
                 ->group(base_path('routes/api.php'));
 
             Route::middleware('web')
