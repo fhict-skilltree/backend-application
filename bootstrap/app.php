@@ -17,6 +17,9 @@ $app = new Illuminate\Foundation\Application(
     $_ENV['APP_BASE_PATH'] ?? dirname(__DIR__)
 );
 
+// Is this really necessary?
+$app->useAppPath('app/App');
+
 /*
 |--------------------------------------------------------------------------
 | Bind Important Interfaces
