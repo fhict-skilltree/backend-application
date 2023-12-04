@@ -2,11 +2,12 @@
 
 declare(strict_types=1);
 
-namespace Domain\Organisation\Models;
+namespace Domain\Organisations\Models;
 
-use Domain\Organisation\Enums\AuthenticationMethodType;
+use Domain\Organisations\Enums\AuthenticationMethodType;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class AuthenticationMethod extends Model
 {
@@ -24,4 +25,9 @@ class AuthenticationMethod extends Model
         'type' => AuthenticationMethodType::class,
         'is_active' => 'boolean',
     ];
+
+    public function samlTenant(): BelongsTo
+    {
+        return $this->belongsTo(SamlTenant::class);
+    }
 }

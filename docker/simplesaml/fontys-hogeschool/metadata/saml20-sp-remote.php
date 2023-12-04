@@ -1,7 +1,7 @@
 <?php
 
-$metadata['https://api.talentpulse.localhost/auth/methods/saml2/a5c5d904-ed29-4462-ab6b-e73cb3270967/metadata'] = [
-    'entityid' => 'https://api.talentpulse.localhost/auth/methods/saml2/a5c5d904-ed29-4462-ab6b-e73cb3270967/metadata',
+$metadata['https://api.talentpulse.localhost/auth/methods/saml2-sp/metadata'] = [
+    'entityid' => 'https://api.talentpulse.localhost/auth/methods/saml2-sp/metadata',
     'contacts' => [
         [
             'contactType' => 'support',

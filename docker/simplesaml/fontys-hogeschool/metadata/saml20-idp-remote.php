@@ -1,13 +1,13 @@
 <?php
 
-$metadata['https://api.talentpulse.localhost/auth/methods/saml2/a5c5d904-ed29-4462-ab6b-e73cb3270967/metadata'] = [
-    'entityid' => 'https://api.talentpulse.localhost/auth/methods/saml2/a5c5d904-ed29-4462-ab6b-e73cb3270967/metadata',
+$metadata['https://fontys-hogeschool.saml-talentpulse.localhost/metadata'] = [
+    'entityid' => 'https://fontys-hogeschool.saml-talentpulse.localhost',
     'contacts' => [
         [
             'contactType' => 'support',
         ],
     ],
-    'metadata-set' => 'saml20-sp-remote',
+    'metadata-set' => 'saml20-idp-remote',
     'AssertionConsumerService' => [
         [
             'Binding' => 'urn:oasis:names:tc:SAML:2.0:bindings:HTTP-POST',

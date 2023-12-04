@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
+use App\Authentication\Http\Controllers\RedirectToCourseController;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Router;
-
 
 /** @var \Illuminate\Routing\Router $router */
 $router->middleware('auth:sanctum')->get('/user', function (Request $request) {
@@ -14,7 +14,6 @@ $router->middleware('auth:sanctum')->get('/user', function (Request $request) {
 // Authentication namespace
 $router->prefix('auth')
     ->group(function (Router $router) {
-
         // Methods
         $router->prefix('methods')
             ->group(function (Router $router) {
@@ -50,5 +49,7 @@ $router->prefix('auth')
                 });
             });
 
+        // Redirect
+        $router//->middleware('auth')
+            ->get('/redirect-to-course', [RedirectToCourseController::class, 'process']);
     });
-
