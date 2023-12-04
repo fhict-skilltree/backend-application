@@ -32,20 +32,20 @@ services:
     labels:
       - "traefik.enable=true"
       - "traefik.docker.network=traefik-gateway"
-      - "traefik.http.routers.skilltree-backend-nginx.rule=Host(`api.talentpulse.localhost`)"
-      - "traefik.http.routers.skilltree-backend-nginx.priority=1"
-      - "traefik.http.routers.skilltree-backend-nginx.entrypoints=https"
-      - "traefik.http.routers.skilltree-backend-nginx.tls=true"
+      - "traefik.http.routers.talentpulse-backend-nginx.rule=Host(`api.talentpulse.localhost`)"
+      - "traefik.http.routers.talentpulse-backend-nginx.priority=1"
+      - "traefik.http.routers.talentpulse-backend-nginx.entrypoints=https"
+      - "traefik.http.routers.talentpulse-backend-nginx.tls=true"
 
   mysql:
     image: mysql/mysql-server:8.0
     command: --max_allowed_packet=32505856
     working_dir: /application
     environment:
-      MYSQL_DATABASE: skilltree
+      MYSQL_DATABASE: talentpulse
       MYSQL_ROOT_PASSWORD: root
-      MYSQL_USER: skilltree
-      MYSQL_PASSWORD: skilltree
+      MYSQL_USER: talentpulse
+      MYSQL_PASSWORD: talentpulse
     volumes:
       - mysql:/var/lib/mysql
       - ./docker/mysql/init:/docker-entrypoint-initdb.d
