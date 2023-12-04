@@ -1,8 +1,8 @@
-# Skilltree backend application
+# TalentPulse backend API
 
-> Main backend application to service the business needs of the Skilltree learning tool
+> Main backend application to service the business needs of the TalentPulse learning tool
 
-This repository contains the codebase that powers the Skilltree learning tool for students. It's currently in development as part of a group challenge of Fontys Hogeschool HBO-ICT OvP. This application is not the outcome of the group, but rather an experiment of Cyril to gain experience of Domain Driven Design (DDD) within the Laravel PHP framework technology stack.
+This repository contains the codebase that powers the TalentPulse learning tool for students. It's currently in development as part of a group challenge of Fontys Hogeschool HBO-ICT OvP. This application is not the outcome of the group, but rather an experiment of Cyril to gain experience of Domain Driven Design (DDD) within the Laravel PHP framework technology stack.
 
 ## Documentation
 
