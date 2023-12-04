@@ -6,10 +6,13 @@ namespace Tests\Feature\App\Authentication\Http\Controllers;
 
 use Domain\Users\Models\User;
 use Illuminate\Contracts\Routing\UrlGenerator;
+use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
 class CurrentUserControllerTest extends TestCase
 {
+    use RefreshDatabase;
+
     private UrlGenerator $urlGenerator;
 
     protected function setUp(): void
