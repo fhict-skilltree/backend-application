@@ -2,18 +2,22 @@
 
 declare(strict_types=1);
 
+use App\Authentication\Http\Controllers\CurrentUserController;
 use App\Authentication\Http\Controllers\RedirectToCourseController;
-use Illuminate\Http\Request;
 use Illuminate\Routing\Router;
 
-/** @var \Illuminate\Routing\Router $router */
-$router->middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
-});
+/** @var Router $router */
 
 // Authentication namespace
 $router->prefix('auth')
+    ->name('auth.')
     ->group(function (Router $router) {
+        // Current user
+        $router
+            ->middleware('auth:sanctum')
+            ->name('current-user')
+            ->get('current-user', [CurrentUserController::class, 'show']);
+
         // Methods
         $router->prefix('methods')
             ->group(function (Router $router) {
