@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Domain\Users\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
-use Domain\Organisations\Models\Factories\OrganisationFactory;
 use Domain\Users\Models\Factories\UserFactory;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
