@@ -11,3 +11,4 @@
 .env.production
 .phpunit.result.cache
 npm-debug.log
+coverage.xml

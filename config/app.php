@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Facade;
 use Illuminate\Support\ServiceProvider;
+use Illuminate\Support\Str;
 
 return [
 
@@ -16,7 +17,7 @@ return [
     |
     */
 
-    'name' => env('APP_NAME', 'Skilltree'),
+    'name' => env('APP_NAME', 'TalentPulse'),
 
     /*
     |--------------------------------------------------------------------------
@@ -58,6 +59,11 @@ return [
     'url' => env('APP_URL', 'http://localhost'),
 
     'asset_url' => env('ASSET_URL'),
+
+    'domain' => Str::of(env('APP_URL', 'http://localhost'))
+        ->remove('http://')
+        ->remove('https://')
+        ->before('/'),
 
     /*
     |--------------------------------------------------------------------------
@@ -167,6 +173,7 @@ return [
         \App\Shared\Providers\AuthServiceProvider::class,
         \App\Shared\Providers\EventServiceProvider::class,
         \App\Shared\Providers\RouteServiceProvider::class,
+        \App\Authentication\Providers\Saml2ServiceProvider::class,
     ])->toArray(),
 
     /*

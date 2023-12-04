@@ -32,8 +32,7 @@ services:
     labels:
       - "traefik.enable=true"
       - "traefik.docker.network=traefik-gateway"
-      - "traefik.http.routers.skilltree-backend-nginx.rule=Host(``)"
-      - "traefik.http.routers.skilltree-backend-nginx.rule=HostRegexp(`skilltree-backend.localhost`, `{[a-z]+}.skilltree-backend.localhost`)"
+      - "traefik.http.routers.skilltree-backend-nginx.rule=Host(`api.talentpulse.localhost`)"
       - "traefik.http.routers.skilltree-backend-nginx.priority=1"
       - "traefik.http.routers.skilltree-backend-nginx.entrypoints=https"
       - "traefik.http.routers.skilltree-backend-nginx.tls=true"
@@ -52,6 +51,29 @@ services:
       - ./docker/mysql/init:/docker-entrypoint-initdb.d
     ports:
       - "127.0.0.1:40201:3306"
+
+  fontys-hogeschool-idp:
+    image: kenchan0130/simplesamlphp
+    environment:
+      SIMPLESAMLPHP_SP_ENTITY_ID: https://talentpulse.localhost
+      SIMPLESAMLPHP_SP_ASSERTION_CONSUMER_SERVICE: https://api.talentpulse.localhost/auth/methods/saml2/a5c5d904-ed29-4462-ab6b-e73cb3270967/acs
+      SIMPLESAMLPHP_SP_SINGLE_LOGOUT_SERVICE: https://api.talentpulse.localhost/auth/methods/saml2/a5c5d904-ed29-4462-ab6b-e73cb3270967/logout
+    volumes:
+      - ./docker/simplesaml/fontys-hogeschool/config/authsources.php:/var/www/simplesamlphp/config/authsources.php
+      - ./docker/simplesaml/fontys-hogeschool/metadata/saml20-sp-remote.php:/var/www/simplesamlphp/metadata/saml20-sp-remote.php
+      - ./docker/simplesaml/fontys-hogeschool/metadata/saml20-idp-remote.php:/var/www/simplesamlphp/metadata/saml20-idp-remote.php
+    networks:
+      - default
+      - traefik-gateway
+    labels:
+      - "traefik.enable=true"
+      - "traefik.docker.network=traefik-gateway"
+      - "traefik.http.services.talentpulse-fontys-hogeschool-idp.loadbalancer.server.port=8000"
+      - "traefik.http.routers.talentpulse-fontys-hogeschool-idp.rule=Host(`fontys-hogeschool.saml-talentpulse.localhost`)"
+      - "traefik.http.routers.talentpulse-fontys-hogeschool-idp.entrypoints=https"
+      - "traefik.http.routers.talentpulse-fontys-hogeschool-idp.tls=true"
+    ports:
+      - "50201:8080"
 
 volumes:
   mysql:
