@@ -8,14 +8,14 @@ use Domain\Organisations\Models\Organisation;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\Domain\Organisations\Models\Organisation>
+ * @extends Factory<Organisation>
  */
 class OrganisationFactory extends Factory
 {
     /**
      * The name of the factory's corresponding model.
      *
-     * @var class-string<\Illuminate\Database\Eloquent\Model>
+     * @var class-string<Organisation>
      */
     protected $model = Organisation::class;
 
