@@ -16,7 +16,11 @@ $router->prefix('auth')
             ->middleware('auth:sanctum')
             ->name('current-user')
             ->get('current-user', [CurrentUserController::class, 'show']);
+    });
 
+// Authentication Methods SAML
+$router->prefix('auth')
+    ->group(function (Router $router) {
         // Methods
         $router->prefix('methods')
             ->group(function (Router $router) {
