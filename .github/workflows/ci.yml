@@ -10,7 +10,6 @@ jobs:
   build-tests:
     runs-on: ubuntu-latest
 
-    # Docs: https://docs.github.com/en/actions/using-containerized-services
     services:
       mysql:
         image: mysql:8.0
@@ -19,7 +18,7 @@ jobs:
           MYSQL_ROOT_PASSWORD: password
           MYSQL_DATABASE: talentpulse
         ports:
-          - 3306/tcp
+          - 3306:3306
         options: --health-cmd="mysqladmin ping" --health-interval=10s --health-timeout=5s --health-retries=3
 
       redis:
@@ -39,11 +38,6 @@ jobs:
           php-version: '8.2'
           extensions: mbstring, dom, fileinfo, mysql
           coverage: xdebug
-
-      # Local MySQL service in GitHub hosted environments is disabled by default.
-      # If you are using it instead of service containers, make sure you start it.
-      # - name: Start mysql service
-      #   run: sudo systemctl start mysql.service
 
       - name: Get composer cache directory
         id: composer-cache
@@ -66,22 +60,13 @@ jobs:
       - name: Clear Config
         run: php artisan config:clear
 
-#      - name: Run Migration
-#        run: php artisan migrate -v
-#        env:
-#          DB_PORT: ${{ job.services.mysql.ports['3306'] }}
-#          REDIS_PORT: ${{ job.services.redis.ports['6379'] }}
-
       - name: Test code style pint
         run: composer run pint-test
 
       - name: Test with phpunit
         run: composer run tests:coverage
-        env:
-          DB_PORT: ${{ job.services.mysql.ports['3306'] }}
-          REDIS_PORT: ${{ job.services.redis.ports['6379'] }}
 
-      - name: Static analyses with Larastan (PHPStan)
+      - name: Static code analyses with Larastan (PHPStan)
         run: composer run analyse
         continue-on-error: true
 
