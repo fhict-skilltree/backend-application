@@ -3,7 +3,6 @@
 declare(strict_types=1);
 
 use App\Authentication\Http\Controllers\CurrentUserController;
-use App\Authentication\Http\Controllers\RedirectToCourseController;
 use Illuminate\Routing\Router;
 
 /** @var Router $router */
@@ -52,8 +51,4 @@ $router->prefix('auth')
                     ]);
                 });
             });
-
-        // Redirect
-        $router//->middleware('auth')
-            ->get('/redirect-to-course', [RedirectToCourseController::class, 'process']);
     });
