@@ -66,11 +66,11 @@ jobs:
       - name: Clear Config
         run: php artisan config:clear
 
-      - name: Run Migration
-        run: php artisan migrate -v
-        env:
-          DB_PORT: ${{ job.services.mysql.ports['3306'] }}
-          REDIS_PORT: ${{ job.services.redis.ports['6379'] }}
+#      - name: Run Migration
+#        run: php artisan migrate -v
+#        env:
+#          DB_PORT: ${{ job.services.mysql.ports['3306'] }}
+#          REDIS_PORT: ${{ job.services.redis.ports['6379'] }}
 
       - name: Test code style pint
         run: composer run pint-test
