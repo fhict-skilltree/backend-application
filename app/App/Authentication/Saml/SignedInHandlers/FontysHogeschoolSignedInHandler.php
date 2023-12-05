@@ -14,8 +14,11 @@ use Slides\Saml2\Saml2User;
 class FontysHogeschoolSignedInHandler implements SignedInHandlerInterface
 {
     private const CLAIM_OBJECTIDENTIFIER = 'http://schemas.microsoft.com/identity/claims/objectidentifier';
+
     private const CLAIM_FIRST_NAME = 'http://schemas.xmlsoap.org/ws/2005/05/identity/claims/givenname';
+
     private const CLAIM_LAST_NAME = 'http://schemas.xmlsoap.org/ws/2005/05/identity/claims/surname';
+
     private const CLAIM_EMAIL = 'http://schemas.xmlsoap.org/ws/2005/05/identity/claims/emailaddress';
 
     public function process(SamlTenant $samlTenant, Saml2User $samlUser): ?User

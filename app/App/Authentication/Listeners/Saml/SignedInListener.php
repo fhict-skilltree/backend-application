@@ -24,7 +24,7 @@ class SignedInListener
         $tenant = $samlUser->getTenant();
 
         if ($tenant->key === TenantKey::FontysHogeschool->value) {
-            $user = (new FontysHogeschoolSignedInHandler)
+            $user = (new FontysHogeschoolSignedInHandler())
                 ->process($tenant, $samlUser);
 
             $this->authManager->guard()->login($user);
