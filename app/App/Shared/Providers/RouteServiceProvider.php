@@ -10,7 +10,72 @@ use Illuminate\Foundation\Support\Providers\RouteServiceProvider as ServiceProvi
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\RateLimiter;
 use Illuminate\Support\Facades\Route;
+use OpenApi\Attributes as OA;
 
+#[OA\Info(
+    version: '0.1',
+    title: 'TalentPulse API',
+)]
+#[OA\Server(
+    url: 'https://api.talentpulse.localhost',
+    description: 'Local Development',
+)]
+#[OA\Components(
+    responses: [
+        'Ok' => new OA\Response(
+            response: 200,
+            description: 'OK'
+        ),
+        'Created' => new OA\Response(
+            response: 201,
+            description: 'Created',
+        ),
+        'NoContent' => new OA\Response(
+            response: 204,
+            description: 'No Content'
+        ),
+        'BadRequest' => new OA\Response(
+            response: 400,
+            description: 'Bad Request',
+            content: new OA\JsonContent(
+                properties: [
+                    new OA\Property(property: 'message', description: 'The error message', type: 'string'),
+                ],
+                type: 'object',
+            )
+        ),
+        'Unauthorized' => new OA\Response(
+            response: 401,
+            description: 'Unauthorized',
+            content: new OA\JsonContent(
+                properties: [
+                    new OA\Property(property: 'message', description: 'The error message', type: 'string'),
+                ],
+                type: 'object',
+            )
+        ),
+        'Forbidden' => new OA\Response(
+            response: 403,
+            description: 'Forbidden',
+            content: new OA\JsonContent(
+                properties: [
+                    new OA\Property(property: 'message', description: 'The error message', type: 'string'),
+                ],
+                type: 'object',
+            ),
+        ),
+        'NotFound' => new OA\Response(
+            response: 404,
+            description: 'Not found',
+            content: new OA\JsonContent(
+                properties: [
+                    new OA\Property(property: 'message', description: 'The error message', type: 'string'),
+                ],
+                type: 'object',
+            ),
+        ),
+    ],
+)]
 class RouteServiceProvider extends ServiceProvider
 {
     /**
