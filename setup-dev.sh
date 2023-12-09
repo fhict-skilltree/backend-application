@@ -30,7 +30,7 @@ if [ "$isFirstInstallation" = true ]; then
     runScript php artisan storage:link
 
     echo "==[ Installing Laravel Passport"
-    runScript php artisan passport:install
+    runScript php artisan passport:install --uuids
 fi
 
 echo  "==[ Opening shell in PHP service"
