@@ -19,7 +19,7 @@ use Laravel\Passport\Http\Controllers\TransientTokenController;
 // Authentication namespace
 $router->prefix('auth')
     ->name('auth.')
-    ->middleware('auth:api')
+    ->middleware(['api', 'auth:api'])
     ->group(function (Router $router) {
         // Current user
         $router
@@ -65,90 +65,77 @@ $router->prefix('auth')
                 });
 
                 // OAuth
-                $router->post('oauth/token', [
-                    'uses' => [AccessTokenController::class, 'issueToken'],
-                    'as' => 'passport.token',
-                    'middleware' => 'throttle',
-                ]);
+                $router->post('oauth/token', [AccessTokenController::class, 'issueToken'])
+                    ->middleware('throttle')
+                    ->name('passport.token');
 
-                $router->get('oauth/authorize', [
-                    'uses' => [AuthorizationController::class, 'authorize'],
-                    'as' => 'passport.authorizations.authorize',
-                    'middleware' => 'web',
-                ]);
+                $router->get('oauth/authorize', [AuthorizationController::class, 'authorize'])
+                    ->middleware('web')
+                    ->name('passport.authorizations.authorize');
 
-                $router->group([
-                    'prefix' => 'oauth',
-                    'as' => 'passport.',
-                    'middleware' => [
+                $router->prefix('oauth')
+                    ->name('passport.')
+                    ->middleware([
                         'web',
                         'auth:web',
-                    ],
-                ], function (Router $router) {
-                    $router->post('/token/refresh', [
-                        'uses' => [TransientTokenController::class, 'refresh'],
-                        'as' => 'token.refresh',
-                    ]);
+                    ])
+                    ->group(function (Router $router) {
+                        $router->post('/token/refresh', [TransientTokenController::class, 'refresh'])
+                            ->name('token.refresh');
 
-                    $router->post('/authorize', [
-                        'uses' => [ApproveAuthorizationController::class, 'approve'],
-                        'as' => 'authorizations.approve',
-                    ]);
+                        $router->post('/authorize', [ApproveAuthorizationController::class, 'approve'])
+                            ->name('authorizations.approve');
 
-                    $router->delete('/authorize', [
-                        'uses' => [DenyAuthorizationController::class, 'deny'],
-                        'as' => 'authorizations.deny',
-                    ]);
+                        $router->delete('/authorize', [DenyAuthorizationController::class, 'deny'])
+                            ->name('authorizations.deny');
 
-                    $router->get('/tokens', [
-                        'uses' => [AuthorizedAccessTokenController::class, 'forUser'],
-                        'as' => 'tokens.index',
-                    ]);
+                        $router->get('/tokens', [AuthorizedAccessTokenController::class, 'forUser'])
+                            ->name('tokens.index');
 
-                    $router->delete('/tokens/{token_id}', [
-                        'uses' => [AuthorizedAccessTokenController::class, 'destroy'],
-                        'as' => 'tokens.destroy',
-                    ]);
+                        $router->delete('/tokens/{token_id}', [
+                            'uses' => [AuthorizedAccessTokenController::class, 'destroy'],
+                            'as' => 'tokens.destroy',
+                        ]);
 
-                    $router->get('/clients', [
-                        'uses' => [ClientController::class, 'forUser'],
-                        'as' => 'clients.index',
-                    ]);
+                        $router->get('/clients', [
+                            'uses' => [ClientController::class, 'forUser'],
+                            'as' => 'clients.index',
+                        ]);
 
-                    $router->post('/clients', [
-                        'uses' => [ClientController::class, 'store'],
-                        'as' => 'clients.store',
-                    ]);
+                        $router->post('/clients', [
+                            'uses' => [ClientController::class, 'store'],
+                            'as' => 'clients.store',
+                        ]);
 
-                    $router->put('/clients/{client_id}', [
-                        'uses' => [ClientController::class, 'update'],
-                        'as' => 'clients.update',
-                    ]);
+                        $router->put('/clients/{client_id}', [
+                            'uses' => [ClientController::class, 'update'],
+                            'as' => 'clients.update',
+                        ]);
 
-                    $router->delete('/clients/{client_id}', [
-                        'uses' => [ClientController::class, 'destroy'],
-                        'as' => 'clients.destroy',
-                    ]);
+                        $router->delete('/clients/{client_id}', [
+                            'uses' => [ClientController::class, 'destroy'],
+                            'as' => 'clients.destroy',
+                        ]);
 
-                    $router->get('/scopes', [
-                        'uses' => [ScopeController::class, 'all'],
-                        'as' => 'scopes.index',
-                    ]);
+                        $router->get('/scopes', [
+                            'uses' => [ScopeController::class, 'all'],
+                            'as' => 'scopes.index',
+                        ]);
 
-                    $router->get('/personal-access-tokens', [
-                        'uses' => [PersonalAccessTokenController::class, 'forUser'],
-                        'as' => 'personal.tokens.index',
-                    ]);
+                        $router->get('/personal-access-tokens', [
+                            'uses' => [PersonalAccessTokenController::class, 'forUser'],
+                            'as' => 'personal.tokens.index',
+                        ]);
 
-                    $router->post('/personal-access-tokens', [
-                        'uses' => [PersonalAccessTokenController::class, 'store'],
-                        'as' => 'personal.tokens.store',
-                    ]);
+                        $router->post('/personal-access-tokens', [
+                            'uses' => [PersonalAccessTokenController::class, 'store'],
+                            'as' => 'personal.tokens.store',
+                        ]);
 
-                    $router->delete('/personal-access-tokens/{token_id}', [
-                        'uses' => [PersonalAccessTokenController::class, 'destroy'],
-                        'as' => 'personal.tokens.destroy',
-                    ]);
-                });
+                        $router->delete('/personal-access-tokens/{token_id}', [
+                            'uses' => [PersonalAccessTokenController::class, 'destroy'],
+                            'as' => 'personal.tokens.destroy',
+                        ]);
+                    });
             });
     });
