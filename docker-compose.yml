@@ -32,7 +32,7 @@ services:
     labels:
       - "traefik.enable=true"
       - "traefik.docker.network=traefik-gateway"
-      - "traefik.http.routers.talentpulse-backend-nginx.rule=Host(`api.talentpulse.localhost`)"
+      - "traefik.http.routers.talentpulse-backend-nginx.rule=Host(`talentpulse-backend.localhost`)"
       - "traefik.http.routers.talentpulse-backend-nginx.priority=1"
       - "traefik.http.routers.talentpulse-backend-nginx.entrypoints=https"
       - "traefik.http.routers.talentpulse-backend-nginx.tls=true"
@@ -56,8 +56,8 @@ services:
     image: kenchan0130/simplesamlphp
     environment:
       SIMPLESAMLPHP_SP_ENTITY_ID: https://talentpulse.localhost
-      SIMPLESAMLPHP_SP_ASSERTION_CONSUMER_SERVICE: https://api.talentpulse.localhost/auth/methods/saml2/a5c5d904-ed29-4462-ab6b-e73cb3270967/acs
-      SIMPLESAMLPHP_SP_SINGLE_LOGOUT_SERVICE: https://api.talentpulse.localhost/auth/methods/saml2/a5c5d904-ed29-4462-ab6b-e73cb3270967/logout
+      SIMPLESAMLPHP_SP_ASSERTION_CONSUMER_SERVICE: https://talentpulse-backend.localhost/auth/methods/saml2/a5c5d904-ed29-4462-ab6b-e73cb3270967/acs
+      SIMPLESAMLPHP_SP_SINGLE_LOGOUT_SERVICE: https://talentpulse-backend.localhost/auth/methods/saml2/a5c5d904-ed29-4462-ab6b-e73cb3270967/logout
     volumes:
       - ./docker/simplesaml/fontys-hogeschool/config/authsources.php:/var/www/simplesamlphp/config/authsources.php
       - ./docker/simplesaml/fontys-hogeschool/metadata/saml20-sp-remote.php:/var/www/simplesamlphp/metadata/saml20-sp-remote.php
