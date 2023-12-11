@@ -96,11 +96,9 @@ class RouteServiceProvider extends ServiceProvider
             return Limit::perMinute(60)->by($request->user()?->id ?: $request->ip());
         });
 
-        $configRepository = $this->app->get(ConfigRepository::class);
 
-        $this->routes(function () use ($configRepository) {
+        $this->routes(function () {
             Route::middleware('api')
-//                ->domain($configRepository->get('app.domain'))
                 ->group(base_path('routes/api.php'));
 
             Route::middleware('web')
