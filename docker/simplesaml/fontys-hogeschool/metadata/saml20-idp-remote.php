@@ -11,29 +11,29 @@ $metadata['https://fontys-hogeschool.saml-talentpulse.localhost/metadata'] = [
     'AssertionConsumerService' => [
         [
             'Binding' => 'urn:oasis:names:tc:SAML:2.0:bindings:HTTP-POST',
-            'Location' => 'https://api.talentpulse.localhost/auth/methods/saml2/a5c5d904-ed29-4462-ab6b-e73cb3270967/acs/',
+            'Location' => 'https://talentpulse-backend.localhost/auth/methods/saml2/a5c5d904-ed29-4462-ab6b-e73cb3270967/acs/',
             'index' => 0,
             'isDefault' => true,
         ],
         [
             'Binding' => 'urn:oasis:names:tc:SAML:2.0:bindings:HTTP-Artifact',
-            'Location' => 'https://api.talentpulse.localhost/auth/methods/saml2/a5c5d904-ed29-4462-ab6b-e73cb3270967/acs/',
+            'Location' => 'https://talentpulse-backend.localhost/auth/methods/saml2/a5c5d904-ed29-4462-ab6b-e73cb3270967/acs/',
             'index' => 1,
         ],
         [
             'Binding' => 'urn:oasis:names:tc:SAML:2.0:bindings:HTTP-Redirect',
-            'Location' => 'https://api.talentpulse.localhost/auth/methods/saml2/a5c5d904-ed29-4462-ab6b-e73cb3270967/sls/',
+            'Location' => 'https://talentpulse-backend.localhost/auth/methods/saml2/a5c5d904-ed29-4462-ab6b-e73cb3270967/sls/',
             'index' => 2,
         ],
     ],
     'SingleLogoutService' => [
         [
             'Binding' => 'urn:oasis:names:tc:SAML:2.0:bindings:HTTP-Redirect',
-            'Location' => 'https://api.talentpulse.localhost/auth/methods/saml2/a5c5d904-ed29-4462-ab6b-e73cb3270967/sls/',
+            'Location' => 'https://talentpulse-backend.localhost/auth/methods/saml2/a5c5d904-ed29-4462-ab6b-e73cb3270967/sls/',
         ],
         [
             'Binding' => 'urn:oasis:names:tc:SAML:2.0:bindings:HTTP-POST',
-            'Location' => 'https://api.talentpulse.localhost/auth/methods/saml2/a5c5d904-ed29-4462-ab6b-e73cb3270967/acs/',
+            'Location' => 'https://talentpulse-backend.localhost/auth/methods/saml2/a5c5d904-ed29-4462-ab6b-e73cb3270967/acs/',
         ],
     ],
     'NameIDFormat' => 'urn:oasis:names:tc:SAML:1.1:nameid-format:emailAddress',

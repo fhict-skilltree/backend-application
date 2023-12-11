@@ -17,7 +17,7 @@ use OpenApi\Attributes as OA;
     title: 'TalentPulse API',
 )]
 #[OA\Server(
-    url: 'https://api.talentpulse.localhost',
+    url: 'https://talentpulse-backend.localhost',
     description: 'Local Development',
 )]
 #[OA\Components(
@@ -100,7 +100,7 @@ class RouteServiceProvider extends ServiceProvider
 
         $this->routes(function () use ($configRepository) {
             Route::middleware('api')
-                ->domain($configRepository->get('app.domain'))
+//                ->domain($configRepository->get('app.domain'))
                 ->group(base_path('routes/api.php'));
 
             Route::middleware('web')

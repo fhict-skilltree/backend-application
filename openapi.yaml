@@ -4,7 +4,7 @@ info:
   version: '0.1'
 servers:
   -
-    url: 'https://api.talentpulse.localhost'
+    url: 'https://talentpulse-backend.localhost'
     description: 'Local Development'
 paths:
   /auth/current-user:
