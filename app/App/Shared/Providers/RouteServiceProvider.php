@@ -5,11 +5,10 @@ declare(strict_types=1);
 namespace App\Shared\Providers;
 
 use Illuminate\Cache\RateLimiting\Limit;
-use Illuminate\Config\Repository as ConfigRepository;
 use Illuminate\Foundation\Support\Providers\RouteServiceProvider as ServiceProvider;
 use Illuminate\Http\Request;
+use Illuminate\Routing\Router;
 use Illuminate\Support\Facades\RateLimiter;
-use Illuminate\Support\Facades\Route;
 use OpenApi\Attributes as OA;
 
 #[OA\Info(
@@ -96,12 +95,11 @@ class RouteServiceProvider extends ServiceProvider
             return Limit::perMinute(60)->by($request->user()?->id ?: $request->ip());
         });
 
-
-        $this->routes(function () {
-            Route::middleware('api')
+        $this->routes(function (Router $router) {
+            $router->middleware('api')
                 ->group(base_path('routes/api.php'));
 
-            Route::middleware('web')
+            $router->middleware('web')
                 ->group(base_path('routes/web.php'));
         });
     }
