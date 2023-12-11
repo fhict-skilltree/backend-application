@@ -12,7 +12,7 @@ use Illuminate\Support\Facades\RateLimiter;
 use OpenApi\Attributes as OA;
 
 #[OA\Info(
-    version: '0.1',
+    version: 'v1.0',
     title: 'TalentPulse API',
 )]
 #[OA\Server(
@@ -98,6 +98,9 @@ class RouteServiceProvider extends ServiceProvider
         $this->routes(function (Router $router) {
             $router->middleware('api')
                 ->group(base_path('routes/api.php'));
+
+            $router->middleware('api')
+                ->group(base_path('routes/api/v1.php'));
 
             $router->middleware('web')
                 ->group(base_path('routes/web.php'));
