@@ -14,6 +14,7 @@ use Laravel\Passport\Http\Controllers\PersonalAccessTokenController;
 use Laravel\Passport\Http\Controllers\ScopeController;
 use Laravel\Passport\Http\Controllers\TransientTokenController;
 use Slides\Saml2\Http\Controllers\Saml2Controller;
+
 /** @var Router $router */
 
 // Authentication namespace
