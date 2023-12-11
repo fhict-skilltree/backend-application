@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Domain\Organisation\Enums;
+namespace Domain\Organisations\Enums;
 
 enum AuthenticationMethodType: string
 {

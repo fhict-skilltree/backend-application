@@ -10,7 +10,8 @@
         "guzzlehttp/guzzle": "^7.2",
         "laravel/framework": "^10.10",
         "laravel/sanctum": "^3.3",
-        "laravel/tinker": "^2.8"
+        "laravel/tinker": "^2.8",
+        "zircote/swagger-php": "^4.7"
     },
     "require-dev": {
         "fakerphp/faker": "^1.9.1",
@@ -44,6 +45,7 @@
         "pint-test-dirty": "./vendor/bin/pint --test --dirty",
         "analyse": "./vendor/bin/phpstan analyse --memory-limit=2G",
         "analyse-baseline": "./vendor/bin/phpstan analyse --generate-baseline phpstan-baseline.php --memory-limit=2G",
+        "openapi:generate": "./vendor/bin/openapi app -o openapi.yaml",
         "post-autoload-dump": [
             "Illuminate\\Foundation\\ComposerScripts::postAutoloadDump",
             "@php artisan package:discover --ansi"

@@ -2,7 +2,8 @@
 
 declare(strict_types=1);
 
-use Domain\Organisation\Models\Organisation;
+use Domain\Organisations\Models\Organisation;
+use Domain\Organisations\Models\SamlTenant;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -16,6 +17,8 @@ return new class extends Migration
             $table->boolean('is_active');
             $table->string('type');
             $table->foreignIdFor(Organisation::class);
+            $table->foreignIdFor(SamlTenant::class)
+                ->nullable();
             $table->timestamps();
         });
     }

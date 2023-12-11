@@ -9,7 +9,7 @@ permalink: /docs/technical/architecture
 
 # Software Architecture
 
-Information related to the software architecture of the Skilltree application can be found here. It's mainly focussed on the backend architecture.
+Information related to the software architecture of the TalentPulse application can be found here. It's mainly focussed on the backend architecture.
 
 ## Domain Driven Design (DDD)
 

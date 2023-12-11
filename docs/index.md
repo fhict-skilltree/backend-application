@@ -1,7 +1,7 @@
 ---
 layout: default
-title: Skilltree Learning tool documentation
+title: TalentPulse Learning tool documentation
 nav_order: 1
 ---
 
-# Skilltree Learning tool documentation
+# TalentPulse Learning tool documentation

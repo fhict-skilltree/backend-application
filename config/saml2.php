@@ -1,5 +1,7 @@
 <?php
 
+use Domain\Organisations\Models\SamlTenant;
+
 return [
 
     /*
@@ -11,7 +13,7 @@ return [
     |
     */
 
-    'tenantModel' => \Slides\Saml2\Models\Tenant::class,
+    'tenantModel' => SamlTenant::class,
 
     /*
     |--------------------------------------------------------------------------
@@ -52,7 +54,9 @@ return [
     |
     */
 
-    'routesMiddleware' => [],
+    'routesMiddleware' => [
+        'saml',
+    ],
 
     /*
     |--------------------------------------------------------------------------
@@ -360,11 +364,11 @@ return [
     'contactPerson' => [
         'technical' => [
             'givenName' => env('SAML2_CONTACT_TECHNICAL_NAME', 'Tech'),
-            'emailAddress' => env('SAML2_CONTACT_TECHNICAL_EMAIL', 'tech@talentflow.nl')
+            'emailAddress' => env('SAML2_CONTACT_TECHNICAL_EMAIL', 'tech@talentpulse.nl')
         ],
         'support' => [
             'givenName' => env('SAML2_CONTACT_SUPPORT_NAME', 'Tech'),
-            'emailAddress' => env('SAML2_CONTACT_SUPPORT_EMAIL', 'tech@talentflow.nl')
+            'emailAddress' => env('SAML2_CONTACT_SUPPORT_EMAIL', 'tech@talentpulse.nl')
         ],
     ],
 
@@ -379,9 +383,9 @@ return [
 
     'organization' => [
         'nl-NL' => [
-            'name' => env('SAML2_ORGANIZATION_NAME', 'TalentFlow'),
-            'displayname' => env('SAML2_ORGANIZATION_NAME', 'TalentFlow'),
-            'url' => env('SAML2_ORGANIZATION_URL', 'https://talentflow.nl')
+            'name' => env('SAML2_ORGANIZATION_NAME', 'TalentPulse'),
+            'displayname' => env('SAML2_ORGANIZATION_NAME', 'TalentPulse'),
+            'url' => env('SAML2_ORGANIZATION_URL', 'https://talentpulse.nl')
         ],
     ],
 

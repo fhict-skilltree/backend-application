@@ -1,0 +1,98 @@
+openapi: 3.0.0
+info:
+  title: 'TalentPulse API'
+  version: '0.1'
+servers:
+  -
+    url: 'https://api.talentpulse.localhost'
+    description: 'Local Development'
+paths:
+  /auth/current-user:
+    get:
+      tags:
+        - User
+      summary: 'Get current authenticated user'
+      operationId: 369bc4826074631c96a7bb5c08b4bed6
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserResource'
+        '401':
+          $ref: '#/components/responses/401'
+        '403':
+          $ref: '#/components/responses/403'
+components:
+  schemas:
+    UserResource:
+      properties:
+        id:
+          description: 'The id of the user'
+          type: integer
+        first_name:
+          description: 'The first name of the user'
+          type: string
+        last_name:
+          description: 'The last name of the user'
+          type: string
+        email:
+          description: 'The email of the user'
+          type: string
+        created_at:
+          description: 'The date the user is created'
+          type: string
+          format: date-time
+        updated_at:
+          description: 'The date the user is updated'
+          type: string
+          format: date-time
+      type: object
+  responses:
+    '200':
+      description: OK
+    '201':
+      description: Created
+    '204':
+      description: 'No Content'
+    '400':
+      description: 'Bad Request'
+      content:
+        application/json:
+          schema:
+            properties:
+              message:
+                description: 'The error message'
+                type: string
+            type: object
+    '401':
+      description: Unauthorized
+      content:
+        application/json:
+          schema:
+            properties:
+              message:
+                description: 'The error message'
+                type: string
+            type: object
+    '403':
+      description: Forbidden
+      content:
+        application/json:
+          schema:
+            properties:
+              message:
+                description: 'The error message'
+                type: string
+            type: object
+    '404':
+      description: 'Not found'
+      content:
+        application/json:
+          schema:
+            properties:
+              message:
+                description: 'The error message'
+                type: string
+            type: object

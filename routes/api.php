@@ -2,19 +2,25 @@
 
 declare(strict_types=1);
 
-use Illuminate\Http\Request;
+use App\Authentication\Http\Controllers\CurrentUserController;
 use Illuminate\Routing\Router;
 
-
-/** @var \Illuminate\Routing\Router $router */
-$router->middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
-});
+/** @var Router $router */
 
 // Authentication namespace
 $router->prefix('auth')
+    ->name('auth.')
     ->group(function (Router $router) {
+        // Current user
+        $router
+            ->middleware('auth:sanctum')
+            ->name('current-user')
+            ->get('current-user', [CurrentUserController::class, 'show']);
+    });
 
+// Authentication Methods SAML
+$router->prefix('auth')
+    ->group(function (Router $router) {
         // Methods
         $router->prefix('methods')
             ->group(function (Router $router) {
@@ -49,6 +55,4 @@ $router->prefix('auth')
                     ]);
                 });
             });
-
     });
-

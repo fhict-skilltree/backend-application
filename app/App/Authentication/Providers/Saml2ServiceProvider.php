@@ -4,8 +4,11 @@ declare(strict_types=1);
 
 namespace App\Authentication\Providers;
 
+use App\Authentication\Listeners\Saml\SignedInListener;
+use App\Authentication\Listeners\Saml\SignedOutListener;
 use Illuminate\Support\ServiceProvider;
 use Slides\Saml2\Events\SignedIn;
+use Slides\Saml2\Events\SignedOut;
 
 class Saml2ServiceProvider extends ServiceProvider
 {
@@ -13,25 +16,8 @@ class Saml2ServiceProvider extends ServiceProvider
     {
         $events = $this->app->make('events');
 
-        $events->listen(SignedIn::class, function (SignedIn $event) {
-            $messageId = $event->getAuth()->getLastMessageId();
-
-            logger()->info('Logged in successfully');
-
-            //            // your own code preventing reuse of a $messageId to stop replay attacks
-            //            $samlUser = $event->getSaml2User();
-            //
-            //            $userData = [
-            //                'id' => $samlUser->getUserId(),
-            //                'attributes' => $samlUser->getAttributes(),
-            //                'assertion' => $samlUser->getRawSamlAssertion()
-            //            ];
-            //
-            //            $user = // find user by ID or attribute
-            //
-            //                // Login a user.
-            //                Auth::login($user);
-        });
+        $events->listen(SignedIn::class, SignedInListener::class);
+        $events->listen(SignedOut::class, SignedOutListener::class);
     }
 
     public function boot(): void

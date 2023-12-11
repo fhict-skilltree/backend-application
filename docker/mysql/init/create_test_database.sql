@@ -1,3 +1,3 @@
-CREATE DATABASE IF NOT EXISTS skilltree_test;
+CREATE DATABASE IF NOT EXISTS talentpulse_test;
 
-GRANT ALL PRIVILEGES ON skilltree_test.* TO 'skilltree'@'%';
+GRANT ALL PRIVILEGES ON talentpulse_test.* TO 'talentpulse'@'%';
