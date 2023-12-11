@@ -13,7 +13,7 @@ use Laravel\Passport\Http\Controllers\DenyAuthorizationController;
 use Laravel\Passport\Http\Controllers\PersonalAccessTokenController;
 use Laravel\Passport\Http\Controllers\ScopeController;
 use Laravel\Passport\Http\Controllers\TransientTokenController;
-
+use Slides\Saml2\Http\Controllers\Saml2Controller;
 /** @var Router $router */
 
 // Authentication namespace
@@ -34,35 +34,25 @@ $router->prefix('auth')
         $router->prefix('methods')
             ->group(function (Router $router) {
                 // SAML Authentication routes
-                $router->group([
-                    'prefix' => 'saml2',
-                    'middleware' => array_merge(['saml2.resolveTenant'], config('saml2.routesMiddleware')),
-                ], function (Router $router) {
-                    $router->get('/{uuid}/logout', [
-                        'as' => 'saml.logout',
-                        'uses' => 'Slides\Saml2\Http\Controllers\Saml2Controller@logout',
-                    ]);
+                $router
+                    ->prefix('saml2')
+                    ->middleware(array_merge(['saml2.resolveTenant'], config('saml2.routesMiddleware')))
+                    ->group(function (Router $router) {
+                        $router->get('/{uuid}/logout', [Saml2Controller::class, 'logout'])
+                            ->name('saml.logout');
 
-                    $router->get('/{uuid}/login', [
-                        'as' => 'saml.login',
-                        'uses' => 'Slides\Saml2\Http\Controllers\Saml2Controller@login',
-                    ]);
+                        $router->get('/{uuid}/login', [Saml2Controller::class, 'login'])
+                            ->name('saml.login');
 
-                    $router->get('/{uuid}/metadata', [
-                        'as' => 'saml.metadata',
-                        'uses' => 'Slides\Saml2\Http\Controllers\Saml2Controller@metadata',
-                    ]);
+                        $router->get('/{uuid}/metadata', [Saml2Controller::class, 'metadata'])
+                            ->name('saml.metadata');
 
-                    $router->post('/{uuid}/acs', [
-                        'as' => 'saml.acs',
-                        'uses' => 'Slides\Saml2\Http\Controllers\Saml2Controller@acs',
-                    ]);
+                        $router->post('/{uuid}/acs', [Saml2Controller::class, 'acs'])
+                            ->name('saml.acs');
 
-                    $router->get('/{uuid}/sls', [
-                        'as' => 'saml.sls',
-                        'uses' => 'Slides\Saml2\Http\Controllers\Saml2Controller@sls',
-                    ]);
-                });
+                        $router->get('/{uuid}/sls', [Saml2Controller::class, 'sls'])
+                            ->name('saml.sls');
+                    });
 
                 // OAuth
                 $router->post('oauth/token', [AccessTokenController::class, 'issueToken'])
