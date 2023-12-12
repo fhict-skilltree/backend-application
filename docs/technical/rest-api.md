@@ -2,7 +2,7 @@
 layout: default
 title: REST API
 nav_order: 5
-parent: REST API
+parent: Technical Documentation
 permalink: /docs/technical/rest-api
 ---
 
