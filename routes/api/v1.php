@@ -9,7 +9,8 @@ use Illuminate\Routing\Router;
 /** @var Router $router */
 
 // Protected
-$router->middleware('auth:api')
+$router
+    ->middleware('auth:api')
     ->group(function (Router $router) {
         //
         // Users
