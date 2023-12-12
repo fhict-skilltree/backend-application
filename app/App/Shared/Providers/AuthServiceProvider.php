@@ -4,7 +4,8 @@ declare(strict_types=1);
 
 namespace App\Shared\Providers;
 
-// use Illuminate\Support\Facades\Gate;
+use App\Courses\Policies\CoursePolicy;
+use Domain\Courses\Models\Course;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
 
 class AuthServiceProvider extends ServiceProvider
@@ -15,6 +16,7 @@ class AuthServiceProvider extends ServiceProvider
      * @var array<class-string, class-string>
      */
     protected $policies = [
+        Course::class => CoursePolicy::class,
     ];
 
     public function boot(): void
