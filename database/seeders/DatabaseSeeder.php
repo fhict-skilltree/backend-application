@@ -8,11 +8,9 @@ use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
 {
-    /**
-     * Seed the application's database.
-     */
     public function run(): void
     {
+        $this->call(OAuthClientSeeder::class);
         $this->call(FontysHogeschoolSeeder::class);
     }
 }
