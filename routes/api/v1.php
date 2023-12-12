@@ -39,5 +39,5 @@ $router
                     ->name('show');
             });
 
-        $router->get('/skilltrees/1', [UserCourseController::class, 'showSkilltree']);
+        $router->get('/skilltrees/1', [SkilltreeController::class, 'index']);
     });
