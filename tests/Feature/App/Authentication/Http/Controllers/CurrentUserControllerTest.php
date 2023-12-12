@@ -31,7 +31,7 @@ class CurrentUserControllerTest extends TestCase
 
         // When
         $response = $this
-            ->actingAs($user)
+            ->actingAs($user, 'api')
             ->getJson($endpoint);
 
         // Then
