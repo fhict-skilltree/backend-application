@@ -75,6 +75,30 @@ use OpenApi\Attributes as OA;
         ),
     ],
 )]
+#[OA\Schema(
+    schema: 'JsonPaginator',
+    properties: [
+        new OA\Property(
+            property: 'meta',
+            properties: [
+                new OA\Property(
+                    property: 'links',
+                    properties: [
+                    ],
+                ),
+                new OA\Property(property: 'current_page', type: 'integer'),
+                new OA\Property(property: 'from', type: 'integer'),
+                new OA\Property(property: 'last_page', type: 'integer'),
+                new OA\Property(property: 'path', type: 'string'),
+                new OA\Property(property: 'per_page', type: 'integer'),
+                new OA\Property(property: 'to', type: 'integer'),
+                new OA\Property(property: 'total', type: 'integer'),
+            ],
+            type: 'object',
+        ),
+    ],
+    type: 'object'
+)]
 class RouteServiceProvider extends ServiceProvider
 {
     /**
