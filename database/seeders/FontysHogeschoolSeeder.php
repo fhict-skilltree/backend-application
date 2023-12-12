@@ -5,15 +5,25 @@ declare(strict_types=1);
 namespace Database\Seeders;
 
 use App\Authentication\Saml\TenantKey;
+use Domain\Courses\Models\Course;
 use Domain\Organisations\Enums\AuthenticationMethodType;
 use Domain\Organisations\Models\AuthenticationMethod;
 use Domain\Organisations\Models\Organisation;
 use Domain\Organisations\Models\SamlTenant;
+use Domain\Users\Models\User;
 use Illuminate\Database\Seeder;
-use Slides\Saml2\Models\Tenant;
+use Illuminate\Support\Collection;
+use Illuminate\Support\Facades\Hash;
 
 class FontysHogeschoolSeeder extends Seeder
 {
+    private Collection $students;
+
+    public function __construct()
+    {
+        $this->students = new Collection();
+    }
+
     public function run(): void
     {
         $organisation = Organisation::factory()->create([
@@ -21,6 +31,8 @@ class FontysHogeschoolSeeder extends Seeder
         ]);
 
         $this->setupAuthenticationMethod($organisation);
+        $this->createUsers($organisation);
+        $this->createCourses();
     }
 
     private function setupAuthenticationMethod(Organisation $organisation): void
@@ -45,5 +57,30 @@ class FontysHogeschoolSeeder extends Seeder
         ]);
         $authenticationMethod->samlTenant()->associate($samlTenant);
         $authenticationMethod->save();
+    }
+
+    private function createUsers(Organisation $organisation): void
+    {
+        $femke = User::create([
+            'uuid' => 'ce120cca-166b-4d68-a255-4587c025de6a',
+            'remote_reference' => 'f2d75402-e1ae-40fe-8cc9-98ca1ab9cd5e',
+            'first_name' => 'Femke',
+            'last_name' => 'Student',
+            'email' => '101@student.fontys.nl',
+            'password' => Hash::make('TestTest0!'),
+            'authentication_method_id' => $organisation->authenticationMethods()->first()->id,
+        ]);
+
+        $this->students->add($femke);
+    }
+
+    private function createCourses(): void
+    {
+        /** @var Course $semesterTwo */
+        $semesterTwo = Course::factory()->create([
+            'title' => 'Semester 2',
+            'content' => 'In dit overzicht vind je de skilltree voor je huidige opleiding. In de skilltree vind je een selectie aan vaardigheden die je in dit semester kunt gaan aantonen. De skilltree doorloop je vanaf boven naar bedenden. Het is de bedoeling dat je zelf een keuze maakt aan welke vaardigheden jij wilt werken. Wanneer je denk dat je een vaardigheid voldoende hebt aangetoond, kun je dit voor jezelf afvinken. De docent zal in jouw periodieke beoordelingen vaststellen op welk niveau jij de leeruitkomsten aantoond.',
+        ]);
+        $semesterTwo->enrolledUsers()->sync($this->students->pluck('id'));
     }
 }
