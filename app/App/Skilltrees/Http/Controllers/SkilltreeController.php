@@ -2,36 +2,13 @@
 
 declare(strict_types=1);
 
-namespace App\Courses\Http\Controllers;
+namespace App\Skilltrees\Http\Controllers;
 
-use App\Courses\Http\Resources\CourseResource;
-use Domain\Courses\Models\Course;
-use Domain\Users\Models\User;
-use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
-use Spatie\QueryBuilder\QueryBuilder;
 
-class UserCourseController extends Controller
+class SkilltreeController extends Controller
 {
-    public function index(Request $request, User $user)
-    {
-        $courses = QueryBuilder::for($user->enrolledCourses())
-            ->allowedSorts([
-                'created_at',
-            ])
-            ->jsonPaginate();
-
-        //        // Get courses from organization
-        //        // whereHas('organisatin')
-        //        // Get courses that a student is enrolled to
-        //        // where
-        //
-        //        $courses = Course::whereHas('users', fn ($courses) => $courses->whereIn('id', [$request->user()->id]))->get();
-
-        return CourseResource::collection($courses);
-    }
-
-    public function showSkilltree()
+    public function index()
     {
         return response()->json([
             'data' => [

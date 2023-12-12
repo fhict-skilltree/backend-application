@@ -3,7 +3,8 @@
 declare(strict_types=1);
 
 use App\Courses\Http\Controllers\ShowController as CourseShowController;
-use App\Courses\Http\Controllers\UserCourseController;
+use App\Courses\Http\Controllers\UserEnrolledCoursesController;
+use App\Skilltrees\Http\Controllers\SkilltreeController;
 use Illuminate\Routing\Router;
 
 /** @var Router $router */
