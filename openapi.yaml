@@ -28,8 +28,8 @@ components:
   schemas:
     UserResource:
       properties:
-        id:
-          description: 'The id of the user'
+        uuid:
+          description: 'The uuid of the user'
           type: integer
         first_name:
           description: 'The first name of the user'
@@ -46,6 +46,26 @@ components:
           format: date-time
         updated_at:
           description: 'The date the user is updated'
+          type: string
+          format: date-time
+      type: object
+    CourseResource:
+      properties:
+        uuid:
+          description: 'The uuid of the course'
+          type: integer
+        title:
+          description: 'The title the user'
+          type: string
+        content:
+          description: 'The content of the course'
+          type: string
+        created_at:
+          description: 'The date the course is created'
+          type: string
+          format: date-time
+        updated_at:
+          description: 'The date the course is updated'
           type: string
           format: date-time
       type: object
