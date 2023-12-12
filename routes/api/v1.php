@@ -24,7 +24,7 @@ $router
                 //
                 // Courses
                 //
-                $router->get('/{user:uuid}/enrolled_courses', [UserCourseController::class, 'index'])
+                $router->get('/{user:uuid}/enrolled_courses', [UserEnrolledCoursesController::class, 'index'])
                     ->name('show.enrolled_courses.index');
             });
 
