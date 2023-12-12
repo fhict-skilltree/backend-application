@@ -5,13 +5,14 @@ declare(strict_types=1);
 namespace Domain\Organisations\Models;
 
 use Domain\Organisations\Enums\AuthenticationMethodType;
+use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class AuthenticationMethod extends Model
 {
-    use HasFactory;
+    use HasFactory, HasUuids;
 
     /**
      * @var array<string>
@@ -25,6 +26,11 @@ class AuthenticationMethod extends Model
         'type' => AuthenticationMethodType::class,
         'is_active' => 'boolean',
     ];
+
+    public function uniqueIds()
+    {
+        return ['uuid'];
+    }
 
     public function samlTenant(): BelongsTo
     {

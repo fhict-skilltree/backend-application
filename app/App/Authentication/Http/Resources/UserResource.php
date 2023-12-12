@@ -23,8 +23,8 @@ class UserResource extends JsonResource
         schema: 'UserResource',
         properties: [
             new OA\Property(
-                property: 'id',
-                description: 'The id of the user',
+                property: 'uuid',
+                description: 'The uuid of the user',
                 type: 'integer'
             ),
             new OA\Property(
@@ -60,7 +60,7 @@ class UserResource extends JsonResource
     public function toArray(Request $request): array
     {
         return [
-            'id' => $this->id,
+            'uuid' => $this->uuid,
             'first_name' => $this->first_name,
             'last_name' => $this->last_name,
             'email' => $this->email,
