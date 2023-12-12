@@ -60,6 +60,9 @@ jobs:
       - name: Clear Config
         run: php artisan config:clear
 
+      - name: Create the Passport encryption Keys
+        run: php artisan passport:keys
+
       - name: Test code style pint
         run: composer run pint-test
 
