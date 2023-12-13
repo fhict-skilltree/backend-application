@@ -39,7 +39,7 @@ use OpenApi\Attributes as OA;
 #[OA\Components(
     schemas: [
         new OA\Schema(
-            schema: 'Paginator',
+            schema: 'PaginatorMeta',
             properties: [
                 new OA\Property(
                     property: 'meta',

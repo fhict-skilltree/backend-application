@@ -39,6 +39,20 @@ paths:
           schema:
             type: string
             format: uuid
+        -
+          name: 'page[number]'
+          in: query
+          description: 'The page number (default: 1)'
+          required: false
+          schema:
+            type: string
+        -
+          name: 'page[size]'
+          in: query
+          description: 'The page number (default: 30, max: 30)'
+          required: false
+          schema:
+            type: string
       responses:
         '200':
           description: OK
@@ -55,7 +69,7 @@ paths:
           LocalhostOAuth: []
 components:
   schemas:
-    Paginator:
+    PaginatorMeta:
       properties:
         meta:
           properties:
@@ -104,7 +118,7 @@ components:
       type: object
       allOf:
         -
-          $ref: '#/components/schemas/Paginator'
+          $ref: '#/components/schemas/PaginatorMeta'
         -
           properties:
             data:

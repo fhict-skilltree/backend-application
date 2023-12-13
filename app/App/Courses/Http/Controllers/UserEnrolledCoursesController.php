@@ -34,6 +34,20 @@ class UserEnrolledCoursesController extends Controller
         required: true,
         schema: new OA\Schema(type: 'string', format: 'uuid'),
     )]
+    #[OA\Parameter(
+        name: 'page[number]',
+        description: 'The page number (default: 1)',
+        in: 'query',
+        required: false,
+        schema: new OA\Schema(type: 'string'),
+    )]
+    #[OA\Parameter(
+        name: 'page[size]',
+        description: 'The page number (default: 30, max: 30)',
+        in: 'query',
+        required: false,
+        schema: new OA\Schema(type: 'string'),
+    )]
     #[OA\Response(
         response: 200,
         description: 'OK',

@@ -27,7 +27,7 @@ class CourseCollection extends ResourceCollection
         ],
         type: 'object',
         allOf: [
-            new OA\Property(ref: '#/components/schemas/Paginator'),
+            new OA\Property(ref: '#/components/schemas/PaginatorMeta'),
         ],
     )]
     public function toArray(Request $request): array
