@@ -25,7 +25,7 @@ class UserEnrolledCoursesController extends Controller
                 'LocalhostOAuth' => [],
             ],
         ],
-        tags: ['User']
+        tags: ['Users']
     )]
     #[OA\Parameter(
         name: 'userUuid',

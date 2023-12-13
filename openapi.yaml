@@ -24,10 +24,39 @@ paths:
           $ref: '#/components/responses/401'
         '403':
           $ref: '#/components/responses/403'
+  '/courses/{courseUuid} ':
+    get:
+      tags:
+        - Courses
+      summary: 'Get the course details'
+      operationId: c035d694490ad4962ef24de6dccf4223
+      parameters:
+        -
+          name: courseUuid
+          in: path
+          description: 'The UUID of the course'
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CourseResource'
+        '401':
+          $ref: '#/components/responses/401'
+        '403':
+          $ref: '#/components/responses/403'
+      security:
+        -
+          LocalhostOAuth: []
   '/users/{userUuid}/enrolled_courses ':
     get:
       tags:
-        - User
+        - Users
       summary: 'Get the enrolled courses of a user'
       operationId: 458252243345eaf52032427e0188c99b
       parameters:
