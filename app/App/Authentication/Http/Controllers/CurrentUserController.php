@@ -14,7 +14,7 @@ class CurrentUserController extends Controller
     #[OA\Get(
         path: '/auth/current-user',
         summary: 'Get current authenticated user',
-        tags: ['User'],
+        tags: ['Authentication'],
     )]
     #[OA\Response(
         response: 200,
