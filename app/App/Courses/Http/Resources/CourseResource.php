@@ -2,17 +2,17 @@
 
 declare(strict_types=1);
 
-namespace App\Authentication\Http\Resources;
+namespace App\Courses\Http\Resources;
 
-use Domain\Users\Models\User;
+use Domain\Courses\Models\Course;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 use OpenApi\Attributes as OA;
 
 /**
- * @mixin User
+ * @mixin Course
  */
-class UserResource extends JsonResource
+class CourseResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -20,37 +20,32 @@ class UserResource extends JsonResource
      * @return array<string, mixed>
      */
     #[OA\Schema(
-        schema: 'UserResource',
+        schema: 'CourseResource',
         properties: [
             new OA\Property(
                 property: 'uuid',
-                description: 'The uuid of the user',
-                type: 'integer'
-            ),
-            new OA\Property(
-                property: 'first_name',
-                description: 'The first name of the user',
+                description: 'The uuid of the course',
                 type: 'string'
             ),
             new OA\Property(
-                property: 'last_name',
-                description: 'The last name of the user',
+                property: 'title',
+                description: 'The title the user',
                 type: 'string'
             ),
             new OA\Property(
-                property: 'email',
-                description: 'The email of the user',
-                type: 'string',
+                property: 'content',
+                description: 'The content of the course',
+                type: 'string'
             ),
             new OA\Property(
                 property: 'created_at',
-                description: 'The date the user is created',
+                description: 'The date the course is created',
                 type: 'string',
                 format: 'date-time',
             ),
             new OA\Property(
                 property: 'updated_at',
-                description: 'The date the user is updated',
+                description: 'The date the course is updated',
                 type: 'string',
                 format: 'date-time',
             ),
@@ -61,9 +56,8 @@ class UserResource extends JsonResource
     {
         return [
             'uuid' => $this->uuid,
-            'first_name' => $this->first_name,
-            'last_name' => $this->last_name,
-            'email' => $this->email,
+            'title' => $this->title,
+            'content' => $this->content,
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,
         ];

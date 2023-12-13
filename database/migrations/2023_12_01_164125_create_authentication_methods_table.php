@@ -14,6 +14,7 @@ return new class extends Migration
     {
         Schema::create('authentication_methods', function (Blueprint $table) {
             $table->id();
+            $table->uuid();
             $table->boolean('is_active');
             $table->string('type');
             $table->foreignIdFor(Organisation::class);

@@ -15,11 +15,54 @@ use OpenApi\Attributes as OA;
     version: 'v1.0',
     title: 'TalentPulse API',
 )]
-#[OA\Server(
-    url: 'https://talentpulse-backend.localhost',
-    description: 'Local Development',
+#[OA\OpenApi(
+    servers: [
+        new OA\Server(
+            url: 'https://talentpulse-backend.localhost',
+            description: 'Local Development',
+        ),
+    ],
+)]
+#[OA\SecurityScheme(
+    securityScheme: 'LocalhostOAuth',
+    type: 'oauth2',
+    flows: [
+        new OA\Flow(
+            authorizationUrl: 'http://talentpulse-backend.localhost/auth/methods/oauth/authorize',
+            tokenUrl: 'http://talentpulse-backend.localhost/auth/methods/oauth/token',
+            refreshUrl: 'http://talentpulse-backend.localhost/auth/methods/oauth/token/refresh',
+            flow: 'authorizationCode',
+            scopes: [],
+        ),
+    ],
 )]
 #[OA\Components(
+    schemas: [
+        new OA\Schema(
+            schema: 'PaginatorMeta',
+            properties: [
+                new OA\Property(
+                    property: 'meta',
+                    properties: [
+                        new OA\Property(
+                            property: 'links',
+                            properties: [
+                            ],
+                        ),
+                        new OA\Property(property: 'current_page', type: 'integer'),
+                        new OA\Property(property: 'from', type: 'integer'),
+                        new OA\Property(property: 'last_page', type: 'integer'),
+                        new OA\Property(property: 'path', type: 'string'),
+                        new OA\Property(property: 'per_page', type: 'integer'),
+                        new OA\Property(property: 'to', type: 'integer'),
+                        new OA\Property(property: 'total', type: 'integer'),
+                    ],
+                    type: 'object',
+                ),
+            ],
+            type: 'object'
+        ),
+    ],
     responses: [
         'Ok' => new OA\Response(
             response: 200,
@@ -73,7 +116,7 @@ use OpenApi\Attributes as OA;
                 type: 'object',
             ),
         ),
-    ],
+    ]
 )]
 class RouteServiceProvider extends ServiceProvider
 {
@@ -100,6 +143,7 @@ class RouteServiceProvider extends ServiceProvider
                 ->group(base_path('routes/api.php'));
 
             $router->middleware('api')
+                ->prefix('v1')
                 ->group(base_path('routes/api/v1.php'));
 
             $router->middleware('web')

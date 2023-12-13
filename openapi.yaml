@@ -10,7 +10,7 @@ paths:
   /auth/current-user:
     get:
       tags:
-        - User
+        - Authentication
       summary: 'Get current authenticated user'
       operationId: 369bc4826074631c96a7bb5c08b4bed6
       responses:
@@ -24,12 +24,106 @@ paths:
           $ref: '#/components/responses/401'
         '403':
           $ref: '#/components/responses/403'
+  '/courses/{courseUuid} ':
+    get:
+      tags:
+        - Courses
+      summary: 'Get the course details'
+      operationId: c035d694490ad4962ef24de6dccf4223
+      parameters:
+        -
+          name: courseUuid
+          in: path
+          description: 'The UUID of the course'
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CourseResource'
+        '401':
+          $ref: '#/components/responses/401'
+        '403':
+          $ref: '#/components/responses/403'
+      security:
+        -
+          LocalhostOAuth: []
+  '/users/{userUuid}/enrolled_courses ':
+    get:
+      tags:
+        - Users
+      summary: 'Get the enrolled courses of a user'
+      operationId: 458252243345eaf52032427e0188c99b
+      parameters:
+        -
+          name: userUuid
+          in: path
+          description: 'The UUID of the user'
+          required: true
+          schema:
+            type: string
+            format: uuid
+        -
+          name: 'page[number]'
+          in: query
+          description: 'The page number (default: 1)'
+          required: false
+          schema:
+            type: string
+        -
+          name: 'page[size]'
+          in: query
+          description: 'The page number (default: 30, max: 30)'
+          required: false
+          schema:
+            type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CourseCollection'
+        '401':
+          $ref: '#/components/responses/401'
+        '403':
+          $ref: '#/components/responses/403'
+      security:
+        -
+          LocalhostOAuth: []
 components:
   schemas:
+    PaginatorMeta:
+      properties:
+        meta:
+          properties:
+            links:
+              properties: {  }
+            current_page:
+              type: integer
+            from:
+              type: integer
+            last_page:
+              type: integer
+            path:
+              type: string
+            per_page:
+              type: integer
+            to:
+              type: integer
+            total:
+              type: integer
+          type: object
+      type: object
     UserResource:
       properties:
-        id:
-          description: 'The id of the user'
+        uuid:
+          description: 'The uuid of the user'
           type: integer
         first_name:
           description: 'The first name of the user'
@@ -46,6 +140,36 @@ components:
           format: date-time
         updated_at:
           description: 'The date the user is updated'
+          type: string
+          format: date-time
+      type: object
+    CourseCollection:
+      type: object
+      allOf:
+        -
+          $ref: '#/components/schemas/PaginatorMeta'
+        -
+          properties:
+            data:
+              $ref: '#/components/schemas/CourseResource'
+          type: object
+    CourseResource:
+      properties:
+        uuid:
+          description: 'The uuid of the course'
+          type: string
+        title:
+          description: 'The title the user'
+          type: string
+        content:
+          description: 'The content of the course'
+          type: string
+        created_at:
+          description: 'The date the course is created'
+          type: string
+          format: date-time
+        updated_at:
+          description: 'The date the course is updated'
           type: string
           format: date-time
       type: object
@@ -96,3 +220,12 @@ components:
                 description: 'The error message'
                 type: string
             type: object
+  securitySchemes:
+    LocalhostOAuth:
+      type: oauth2
+      flows:
+        authorizationCode:
+          authorizationUrl: 'http://talentpulse-backend.localhost/auth/methods/oauth/authorize'
+          tokenUrl: 'http://talentpulse-backend.localhost/auth/methods/oauth/token'
+          refreshUrl: 'http://talentpulse-backend.localhost/auth/methods/oauth/token/refresh'
+          scopes: {  }

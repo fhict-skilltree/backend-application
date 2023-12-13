@@ -13,6 +13,7 @@ return new class extends Migration
     {
         Schema::create('users', function (Blueprint $table) {
             $table->id();
+            $table->uuid();
             $table->string('remote_reference')->nullable();
             $table->foreignIdFor(AuthenticationMethod::class)->nullable();
             $table->string('first_name');
