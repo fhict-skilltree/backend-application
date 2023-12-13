@@ -68,7 +68,7 @@ class ShowControllerTest extends TestCase
         $response->assertUnauthorized();
     }
 
-    public function test_it_returns_unauthorized_response_when_user_is_not_enrolled_to_course(): void
+    public function test_it_returns_forbidden_response_when_user_is_not_enrolled_to_course(): void
     {
         // Given
         $user = User::factory()->create();
