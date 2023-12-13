@@ -20,28 +20,26 @@ use OpenApi\Attributes as OA;
         new OA\Server(
             url: 'https://talentpulse-backend.localhost',
             description: 'Local Development',
-        )
+        ),
     ],
-    security: [
-        new OA\SecurityScheme(
-            securityScheme: 'LocalhostOAuth',
-            type: 'oauth2',
-            flows: [
-                new OA\Flow(
-                    authorizationUrl: 'http://talentpulse-backend.localhost/auth/methods/oauth/authorize',
-                    tokenUrl: 'http://talentpulse-backend.localhost/auth/methods/oauth/token',
-                    refreshUrl: 'http://talentpulse-backend.localhost/auth/methods/oauth/token/refresh',
-                    flow: 'authorizationCode',
-                    scopes: [],
-                ),
-            ],
-        )
+)]
+#[OA\SecurityScheme(
+    securityScheme: 'LocalhostOAuth',
+    type: 'oauth2',
+    flows: [
+        new OA\Flow(
+            authorizationUrl: 'http://talentpulse-backend.localhost/auth/methods/oauth/authorize',
+            tokenUrl: 'http://talentpulse-backend.localhost/auth/methods/oauth/token',
+            refreshUrl: 'http://talentpulse-backend.localhost/auth/methods/oauth/token/refresh',
+            flow: 'authorizationCode',
+            scopes: [],
+        ),
     ],
 )]
 #[OA\Components(
     schemas: [
         new OA\Schema(
-            schema: 'JsonPaginator',
+            schema: 'Paginator',
             properties: [
                 new OA\Property(
                     property: 'meta',
@@ -63,7 +61,7 @@ use OpenApi\Attributes as OA;
                 ),
             ],
             type: 'object'
-        )
+        ),
     ],
     responses: [
         'Ok' => new OA\Response(

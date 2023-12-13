@@ -45,14 +45,17 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/UserResource'
+                $ref: '#/components/schemas/CourseCollection'
         '401':
           $ref: '#/components/responses/401'
         '403':
           $ref: '#/components/responses/403'
+      security:
+        -
+          LocalhostOAuth: []
 components:
   schemas:
-    JsonPaginator:
+    Paginator:
       properties:
         meta:
           properties:
@@ -97,11 +100,21 @@ components:
           type: string
           format: date-time
       type: object
+    CourseCollection:
+      type: object
+      allOf:
+        -
+          $ref: '#/components/schemas/Paginator'
+        -
+          properties:
+            data:
+              $ref: '#/components/schemas/CourseResource'
+          type: object
     CourseResource:
       properties:
         uuid:
           description: 'The uuid of the course'
-          type: integer
+          type: string
         title:
           description: 'The title the user'
           type: string
@@ -164,13 +177,12 @@ components:
                 description: 'The error message'
                 type: string
             type: object
-security:
-  -
-    securityScheme: LocalhostOAuth
-    type: oauth2
-    flows:
-      authorizationCode:
-        authorizationUrl: 'http://talentpulse-backend.localhost/auth/methods/oauth/authorize'
-        tokenUrl: 'http://talentpulse-backend.localhost/auth/methods/oauth/token'
-        refreshUrl: 'http://talentpulse-backend.localhost/auth/methods/oauth/token/refresh'
-        scopes: {  }
+  securitySchemes:
+    LocalhostOAuth:
+      type: oauth2
+      flows:
+        authorizationCode:
+          authorizationUrl: 'http://talentpulse-backend.localhost/auth/methods/oauth/authorize'
+          tokenUrl: 'http://talentpulse-backend.localhost/auth/methods/oauth/token'
+          refreshUrl: 'http://talentpulse-backend.localhost/auth/methods/oauth/token/refresh'
+          scopes: {  }

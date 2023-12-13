@@ -25,7 +25,7 @@ class CourseResource extends JsonResource
             new OA\Property(
                 property: 'uuid',
                 description: 'The uuid of the course',
-                type: 'integer'
+                type: 'string'
             ),
             new OA\Property(
                 property: 'title',
