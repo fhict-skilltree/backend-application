@@ -161,6 +161,9 @@ components:
         title:
           description: 'The title the user'
           type: string
+        excerpt:
+          description: 'The excerpt of the course'
+          type: string
         content:
           description: 'The content of the course'
           type: string

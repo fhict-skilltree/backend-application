@@ -33,6 +33,11 @@ class CourseResource extends JsonResource
                 type: 'string'
             ),
             new OA\Property(
+                property: 'excerpt',
+                description: 'The excerpt of the course',
+                type: 'string'
+            ),
+            new OA\Property(
                 property: 'content',
                 description: 'The content of the course',
                 type: 'string'
@@ -57,6 +62,7 @@ class CourseResource extends JsonResource
         return [
             'uuid' => $this->uuid,
             'title' => $this->title,
+            'excerpt' => $this->excerpt,
             'content' => $this->content,
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,

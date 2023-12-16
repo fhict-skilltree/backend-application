@@ -16,6 +16,7 @@ return new class extends Migration
             $table->id();
             $table->uuid();
             $table->string('title');
+            $table->text('excerpt');
             $table->text('content')->nullable();
             $table->timestamps();
         });

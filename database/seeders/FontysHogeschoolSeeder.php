@@ -79,8 +79,9 @@ class FontysHogeschoolSeeder extends Seeder
         /** @var Course $semesterTwo */
         $semesterTwo = Course::factory()->create([
             'uuid' => '9ad59568-b12c-42d7-94a5-05a46e14c13a',
-            'title' => 'Semester 2',
-            'content' => 'In dit overzicht vind je de skilltree voor je huidige opleiding. In de skilltree vind je een selectie aan vaardigheden die je in dit semester kunt gaan aantonen. De skilltree doorloop je vanaf boven naar bedenden. Het is de bedoeling dat je zelf een keuze maakt aan welke vaardigheden jij wilt werken. Wanneer je denk dat je een vaardigheid voldoende hebt aangetoond, kun je dit voor jezelf afvinken. De docent zal in jouw periodieke beoordelingen vaststellen op welk niveau jij de leeruitkomsten aantoond.',
+            'title' => 'O-PP-CMK - 2324nj',
+            'excerpt' => 'Onderwijs voor professionals Open Learning is het deeltijdtraject waarbij je veel vrijheid en flexibiliteit krijgt om je persoonlijke focus en structuur te bepalen, binnen de grenzen van het HBO-I competentiekader. In de praktijk betekent dit dat alles wat binnen deze grenzen valt potentieel gebruikt kan worden in je studie. In deze cursus vind je alles wat je voor Open Learning OvP nodig hebt.',
+            'content' => 'In dit overzicht vind je de skilltree voor je huidige opleiding. In de skilltree vind je een selectie aan vaardigheden die je in dit semester kunt gaan aantonen. De skilltree doorloop je vanaf beneden naar boven. Het is de bedoeling dat je zelf een keuze maakt aan welke vaardigheden jij wilt werken. Wanneer je denk dat je een vaardigheid voldoende hebt aangetoond, kun je dit voor jezelf afvinken. De docent zal in jouw periodieke beoordelingen vaststellen op welk niveau jij de leeruitkomsten aantoond.',
         ]);
         $semesterTwo->enrolledUsers()->sync($this->students->pluck('id'));
     }

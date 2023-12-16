@@ -28,6 +28,7 @@ class CourseFactory extends Factory
     {
         return [
             'title' => $this->faker->company(),
+            'excerpt' => $this->faker->text(180),
             'content' => $this->faker->text,
         ];
     }
