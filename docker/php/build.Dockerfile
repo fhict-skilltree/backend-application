@@ -14,7 +14,6 @@ RUN groupdel dialout && groupmod -g ${BUILD_GID} www-data && usermod -s /bin/sh 
 COPY --from=composer:2.4.4 /usr/bin/composer /usr/bin/composer
 RUN  --mount=type=bind,from=mlocati/php-extension-installer:1.5.49,source=/usr/bin/install-php-extensions,target=/usr/local/bin/install-php-extensions \
       install-php-extensions \
-          xdebug \
           opcache \
           intl \
           zip \
