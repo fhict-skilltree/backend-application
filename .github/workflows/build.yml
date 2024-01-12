@@ -12,7 +12,6 @@ on:
       - CHANGELOG.md
       - .gitignore
       - .github/**
-  # Support manually triggering the workflow.
   workflow_dispatch:
 
 env:

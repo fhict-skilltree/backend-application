@@ -41,4 +41,3 @@ $router
 
         $router->get('/skilltrees/1', [SkilltreeController::class, 'index']);
     });
-#
