@@ -1,0 +1,41 @@
+name: Deploy to PROD
+on:
+  workflow_dispatch:
+    inputs:
+      image_tag:
+        description: 'The image tag you wish to deploy.'
+        required: true
+        default: 'main'
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    environment: production
+    steps:
+      - name: Deploy on PROD (talentpulse.nl)
+        uses: appleboy/ssh-action@v0.1.8
+        env:
+          IMAGE_TAG: ${{ inputs.IMAGE_TAG }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_ACTOR: ${{ github.actor }}
+        with:
+          host: ${{ secrets.DOCKER_PROD_HOST }}
+          username: ${{ secrets.DOCKER_PROD_USER }}
+          key: ${{ secrets.DOCKER_PROD_PRIVATE_KEY }}
+          passphrase: ${{ secrets.DOCKER_PROD_PASSPHRASE }}
+          port: 22
+          envs: IMAGE_TAG,GITHUB_TOKEN,GITHUB_ACTOR
+          script: |
+            echo $GITHUB_TOKEN | docker login ghcr.io -u $GITHUB_ACTOR --password-stdin
+            cd /root/deployments/deploy-backend-application
+            touch .env.new
+            echo "IMAGE_TAG=\"$IMAGE_TAG\"" >> .env.new
+            echo "HOST=\"api.talentpulse.nl\"" >> .env.new
+            echo "APP_NAME=\"TalentPuls\"" >> .env.new
+            echo "APP_ENV=\"local\"" >> .env.new
+            echo "APP_KEY=\"$PROD_APP_KEY\"" >> .env.new
+            [ -f .env ] && mv .env .env.old
+            mv .env.new .env
+            docker compose pull
+            docker compose down
+            docker compose up -d
