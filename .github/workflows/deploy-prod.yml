@@ -22,7 +22,7 @@ jobs:
           host: ${{ secrets.DOCKER_PROD_HOST }}
           username: ${{ secrets.DOCKER_PROD_USER }}
           key: ${{ secrets.DOCKER_PROD_PRIVATE_KEY }}
-          passphrase: ${{ secrets.DOCKER_PROD_PASSPHRASE }}
+          password: ${{ secrets.DOCKER_PROD_PASSPHRASE }}
           port: 22
           envs: IMAGE_TAG,GITHUB_TOKEN,GITHUB_ACTOR
           script: |
@@ -31,7 +31,7 @@ jobs:
             touch .env.new
             echo "IMAGE_TAG=\"$IMAGE_TAG\"" >> .env.new
             echo "HOST=\"api.talentpulse.nl\"" >> .env.new
-            echo "APP_NAME=\"TalentPuls\"" >> .env.new
+            echo "APP_NAME=\"TalentPulse\"" >> .env.new
             echo "APP_ENV=\"local\"" >> .env.new
             echo "APP_KEY=\"$PROD_APP_KEY\"" >> .env.new
             [ -f .env ] && mv .env .env.old
