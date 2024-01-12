@@ -5,13 +5,8 @@ ARG BUILD_UID=1000
 
 # Install packages
 RUN --mount=type=cache,target=/var/cache/apk apk --update add \
-    git  \
     grep \
-    nano \
-    nodejs \
-    npm \
     shadow \
-    patch \
     openssh
 
 RUN groupdel dialout && groupmod -g ${BUILD_GID} www-data && usermod -s /bin/sh -g ${BUILD_GID} -u ${BUILD_UID} www-data
@@ -37,17 +32,8 @@ RUN mkdir -p /var/www/html && chown -R www-data:www-data /var/www/html
 
 WORKDIR /var/www/html
 
-COPY ./artisan ./artisan
-COPY ./bootstrap ./bootstrap
-COPY ./config ./config
-COPY ./database ./database
-COPY ./public ./public
-COPY ./routes ./routes
-COPY ./storage ./storage
-COPY ./app ./app
-
 # Composer dependencies
-FROM composer:2.6.5 AS composer_vendor
+FROM composer:2.6.6 AS composer_vendor
 WORKDIR /app
 COPY composer.json composer.json
 COPY composer.lock composer.lock
@@ -60,6 +46,19 @@ RUN --mount=type=cache,target=/root/.composer/cache composer install \
     --prefer-dist
 
 FROM base AS app
+
+COPY ./artisan ./artisan
+COPY ./bootstrap ./bootstrap
+
+COPY --from=composer_vendor ./app/vendor/ ./vendor
+
+COPY ./config ./config
+COPY ./database ./database
+COPY ./public ./public
+COPY ./routes ./routes
+COPY ./storage ./storage
+COPY ./app ./app
+
 EXPOSE 9000
 USER www-data
 CMD ["php-fpm"]
