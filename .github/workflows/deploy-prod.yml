@@ -36,6 +36,13 @@ jobs:
             echo "APP_KEY=\"$PROD_APP_KEY\"" >> .env.new
             [ -f .env ] && mv .env .env.old
             mv .env.new .env
+            touch .env.docker.new
+            echo "MYSQL_DATABASE=\"$MYSQL_DATABASE\"" >> .env.docker.new
+            echo "MYSQL_ROOT_PASSWORD=\"$MYSQL_ROOT_PASSWORD\"" >> .env.docker.new
+            echo "MYSQL_PASSWORD=\"$MYSQL_PASSWORD\"" >> .env.docker.new
+            echo "MYSQL_USER=\"$MYSQL_USER\"" >> .env.docker.new
+            [ -f .env.docker ] && mv .env.docker .env.docker.old
+            mv .env.docker.new .env.docker
             docker compose pull
             docker compose down
             docker compose up -d
