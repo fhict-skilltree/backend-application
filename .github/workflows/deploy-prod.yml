@@ -36,6 +36,14 @@ jobs:
             echo "APP_KEY=\"$PROD_APP_KEY\"" >> .env.new
             [ -f .env ] && mv .env .env.old
             mv .env.new .env
+            touch .env.docker.new
+            echo "IMAGE_TAG=\"$IMAGE_TAG\"" >> .env.docker.new
+            echo "HOST=\"api.talentpulse.nl\"" >> .env.docker.new
+            echo "APP_NAME=\"TalentPulse\"" >> .env.docker.new
+            echo "APP_ENV=\"local\"" >> .env.docker.new
+            echo "APP_KEY=\"$PROD_APP_KEY\"" >> .env.docker.new
+            [ -f .env.docker ] && mv .env.docker .env.docker.old
+            mv .env.docker.new .env.docker
             docker compose pull
             docker compose down
             docker compose up -d
