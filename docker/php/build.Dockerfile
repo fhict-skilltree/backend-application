@@ -37,7 +37,7 @@ RUN mkdir -p /var/www/html && chown -R www-data:www-data /var/www/html
 
 WORKDIR /var/www/html
 
-COPY ./tinker ./tinker
+COPY ./artisan ./artisan
 COPY ./bootstrap ./bootstrap
 COPY ./config ./config
 COPY ./database ./database
