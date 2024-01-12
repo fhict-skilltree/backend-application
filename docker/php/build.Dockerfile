@@ -37,6 +37,15 @@ RUN mkdir -p /var/www/html && chown -R www-data:www-data /var/www/html
 
 WORKDIR /var/www/html
 
+COPY ./artisan ./artisan
+COPY ./bootstrap ./bootstrap
+COPY ./config ./config
+COPY ./database ./database
+COPY ./public ./public
+COPY ./routes ./routes
+COPY ./storage ./storage
+COPY ./app ./app
+
 # Composer dependencies
 FROM composer:2.6.5 AS composer_vendor
 WORKDIR /app
@@ -50,7 +59,6 @@ RUN --mount=type=cache,target=/root/.composer/cache composer install \
     --no-scripts \
     --prefer-dist
 
-# Local environment
 FROM base AS app
 EXPOSE 9000
 USER www-data
