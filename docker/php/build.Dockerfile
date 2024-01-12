@@ -44,7 +44,7 @@ RUN --mount=type=cache,target=/root/.composer/cache composer install \
     --no-scripts \
     --prefer-dist
 
-FROM base AS app
+FROM base AS build
 
 COPY ./artisan ./artisan
 COPY ./bootstrap ./bootstrap
@@ -58,6 +58,7 @@ COPY ./routes ./routes
 COPY ./storage ./storage
 COPY ./app ./app
 
+FROM build AS app
 EXPOSE 9000
 USER www-data
 CMD ["php-fpm"]
