@@ -46,3 +46,5 @@ jobs:
             docker compose pull
             docker compose down php
             docker compose up -d php
+            docker compose exec -it php php artisan optimize
+            docker compose exec -it php php artisan migrate --force
