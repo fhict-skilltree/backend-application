@@ -7,5 +7,3 @@ docker compose down --remove-orphans
 
 echo "==[ DOCKER BUILD AND START CONTAINERS ]==";
 dockerCompose up  -d --remove-orphans --build
-
-#
