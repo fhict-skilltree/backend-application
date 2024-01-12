@@ -44,5 +44,5 @@ jobs:
             [ -f .env.docker ] && mv .env.docker .env.docker.old
             mv .env.docker.new .env.docker
             docker compose pull
-            docker compose down
-            docker compose up -d
+            docker compose down php
+            docker compose up -d php
