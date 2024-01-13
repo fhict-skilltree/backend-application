@@ -19,12 +19,12 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           GITHUB_ACTOR: ${{ github.actor }}
           PROD_APP_KEY: ${{ secrets.PROD_APP_KEY }}
-          DB_CONNECTION: ${{ secrets.PROD_DB_CONNECTION }}
-          DB_HOST: ${{ secrets.PROD_DB_HOST }}
-          MYSQL_DATABASE: ${{ secrets.PROD_MYSQL_DATABASE }}
-          MYSQL_USER: ${{ secrets.PROD_MYSQL_USER }}
-          MYSQL_PASSWORD: ${{ secrets.PROD_MYSQL_PASSWORD }}
-          MYSQL_ROOT_PASSWORD: ${{ secrets.PROD_MYSQL_ROOT_PASSWORD }}
+          DB_CONNECTION: ${{ secrets.DB_CONNECTION }}
+          DB_HOST: ${{ secrets.DB_HOST }}
+          MYSQL_DATABASE: ${{ secrets.MYSQL_DATABASE }}
+          MYSQL_USER: ${{ secrets.MYSQL_USER }}
+          MYSQL_PASSWORD: ${{ secrets.MYSQL_PASSWORD }}
+          MYSQL_ROOT_PASSWORD: ${{ secrets.MYSQL_ROOT_PASSWORD }}
         with:
           host: ${{ secrets.DOCKER_PROD_HOST }}
           username: ${{ secrets.DOCKER_PROD_USER }}
