@@ -39,7 +39,7 @@ jobs:
             echo "IMAGE_TAG=\"$IMAGE_TAG\"" >> .env.new
             echo "HOST=\"api.talentpulse.nl\"" >> .env.new
             echo "APP_NAME=\"TalentPulse\"" >> .env.new
-            echo "APP_ENV=\"local\"" >> .env.new
+            echo "APP_ENV=\"production\"" >> .env.new
             echo "APP_KEY=\"$PROD_APP_KEY\"" >> .env.new
             echo "DB_CONNECTION=\"$DB_CONNECTION\"" >> .env.new
             echo "DB_HOST=\"$DB_HOST\"" >> .env.new
