@@ -18,20 +18,30 @@ jobs:
           IMAGE_TAG: ${{ inputs.IMAGE_TAG }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           GITHUB_ACTOR: ${{ github.actor }}
-          PROD_APP_KEY: ${{ env.production.PROD_APP_KEY }}
-          DB_CONNECTION: ${{ env.production.DB_CONNECTION }}
-          DB_HOST: ${{ env.production.DB_HOST }}
-          MYSQL_DATABASE: ${{ env.production.MYSQL_DATABASE }}
-          MYSQL_USER: ${{ env.production.MYSQL_USER }}
-          MYSQL_PASSWORD: ${{ env.production.MYSQL_PASSWORD }}
-          MYSQL_ROOT_PASSWORD: ${{ env.production.MYSQL_ROOT_PASSWORD }}
+          PROD_APP_KEY: ${{ secrets.PROD_APP_KEY }}
+          DB_CONNECTION: ${{ secrets.DB_CONNECTION }}
+          DB_HOST: ${{ secrets.DB_HOST }}
+          MYSQL_DATABASE: ${{ secrets.MYSQL_DATABASE }}
+          MYSQL_USER: ${{ secrets.MYSQL_USER }}
+          MYSQL_PASSWORD: ${{ secrets.MYSQL_PASSWORD }}
+          MYSQL_ROOT_PASSWORD: ${{ secrets.MYSQL_ROOT_PASSWORD }}
         with:
           host: ${{ secrets.DOCKER_PROD_HOST }}
           username: ${{ secrets.DOCKER_PROD_USER }}
           key: ${{ secrets.DOCKER_PROD_PRIVATE_KEY }}
           password: ${{ secrets.DOCKER_PROD_PASSWORD }}
           port: 22
-          envs: IMAGE_TAG,GITHUB_TOKEN,GITHUB_ACTOR
+          envs:
+            IMAGE_TAG
+            GITHUB_TOKEN
+            GITHUB_ACTOR
+            PROD_APP_KEY
+            DB_CONNECTION
+            DB_HOST
+            MYSQL_DATABASE
+            MYSQL_USER
+            MYSQL_PASSWORD
+            MYSQL_ROOT_PASSWORD
           script: |
             echo $GITHUB_TOKEN | docker login ghcr.io -u $GITHUB_ACTOR --password-stdin
             cd /home/admin/deployments/deploy-backend-application
@@ -39,7 +49,7 @@ jobs:
             echo "IMAGE_TAG=\"$IMAGE_TAG\"" >> .env.new
             echo "HOST=\"api.talentpulse.nl\"" >> .env.new
             echo "APP_NAME=\"TalentPulse\"" >> .env.new
-            echo "APP_ENV=\"local\"" >> .env.new
+            echo "APP_ENV=\"production\"" >> .env.new
             echo "APP_KEY=\"$PROD_APP_KEY\"" >> .env.new
             echo "DB_CONNECTION=\"$DB_CONNECTION\"" >> .env.new
             echo "DB_HOST=\"$DB_HOST\"" >> .env.new
