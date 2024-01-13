@@ -18,6 +18,13 @@ jobs:
           IMAGE_TAG: ${{ inputs.IMAGE_TAG }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           GITHUB_ACTOR: ${{ github.actor }}
+          PROD_APP_KEY: ${{ secrets.PROD_APP_KEY }}
+          DB_CONNECTION: ${{ secrets.DB_CONNECTION }}
+          DB_HOST: ${{ secrets.DB_HOST }}
+          MYSQL_DATABASE: ${{ secrets.MYSQL_DATABASE }}
+          MYSQL_USER: ${{ secrets.MYSQL_USER }}
+          MYSQL_PASSWORD: ${{ secrets.MYSQL_PASSWORD }}
+          MYSQL_ROOT_PASSWORD: ${{ secrets.MYSQL_ROOT_PASSWORD }}
         with:
           host: ${{ secrets.DOCKER_PROD_HOST }}
           username: ${{ secrets.DOCKER_PROD_USER }}
@@ -44,12 +51,11 @@ jobs:
             touch .env.docker.new
             echo "MYSQL_DATABASE=\"$MYSQL_DATABASE\"" >> .env.docker.new
             echo "MYSQL_ROOT_PASSWORD=\"$MYSQL_ROOT_PASSWORD\"" >> .env.docker.new
-            echo "MYSQL_PASSWORD=\"$MYSQL_PASSWORD\"" >> .env.docker.new
+            echo "MYSQL_PASSWORDMYSQL_PASSWORD=\"$MYSQL_PASSWORD\"" >> .env.docker.new
             echo "MYSQL_USER=\"$MYSQL_USER\"" >> .env.docker.new
             [ -f .env.docker ] && mv .env.docker .env.docker.old
             mv .env.docker.new .env.docker
             docker compose pull
             docker compose down php
             docker compose up -d php
-            docker compose exec -it php php artisan optimize
             docker compose exec -it php php artisan migrate --force
