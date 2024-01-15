@@ -5,7 +5,7 @@ services:
     build:
       target: local
       context: ./
-      dockerfile: docker/php/Dockerfile
+      dockerfile: docker/php/dev.Dockerfile
     working_dir: /var/www/html
     depends_on:
       - mysql
