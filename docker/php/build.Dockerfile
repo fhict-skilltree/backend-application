@@ -43,18 +43,18 @@ RUN --mount=type=cache,target=/root/.composer/cache composer install \
 
 FROM base AS build
 
-COPY ./artisan ./artisan
-COPY ./bootstrap ./bootstrap
+COPY --chown=wodby:wodby ./artisan ./artisan
+COPY --chown=wodby:wodby ./bootstrap ./bootstrap
 
-COPY ./composer.json ./composer.json
-COPY --from=composer_vendor ./app/vendor/ ./vendor
+COPY --chown=wodby:wodby ./composer.json ./composer.json
+COPY --chown=wodby:wodby --from=composer_vendor ./app/vendor/ ./vendor
 
-COPY ./config ./config
-COPY ./database ./database
-COPY ./public ./public
-COPY ./routes ./routes
-COPY ./storage ./storage
-COPY ./app ./app
+COPY --chown=wodby:wodby ./config ./config
+COPY --chown=wodby:wodby ./database ./database
+COPY --chown=wodby:wodby ./public ./public
+COPY --chown=wodby:wodby ./routes ./routes
+COPY --chown=wodby:wodby ./storage ./storage
+COPY --chown=wodby:wodby ./app ./app
 
 FROM build AS app
 EXPOSE 9000
