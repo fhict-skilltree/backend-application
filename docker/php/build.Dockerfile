@@ -43,19 +43,20 @@ RUN --mount=type=cache,target=/root/.composer/cache composer install \
 
 FROM base AS build
 
-COPY --chown=wodby:wodby ./artisan ./artisan
-COPY --chown=wodby:wodby ./bootstrap ./bootstrap
+COPY --chown=www-data:www-data ./artisan ./artisan
+COPY --chown=www-data:www-data ./bootstrap ./bootstrap
 
-COPY --chown=wodby:wodby ./composer.json ./composer.json
-COPY --chown=wodby:wodby --from=composer_vendor ./app/vendor/ ./vendor
+COPY --chown=www-data:www-data ./composer.json ./composer.json
+COPY --chown=www-data:www-data --from=composer_vendor ./app/vendor/ ./vendor
 
-COPY --chown=wodby:wodby ./config ./config
-COPY --chown=wodby:wodby ./database ./database
-COPY --chown=wodby:wodby ./public ./public
-COPY --chown=wodby:wodby ./routes ./routes
-COPY --chown=wodby:wodby ./storage ./storage
-COPY --chown=wodby:wodby ./app ./app
+COPY --chown=www-data:www-data ./config ./config
+COPY --chown=www-data:www-data ./database ./database
+COPY --chown=www-data:www-data ./public ./public
+COPY --chown=www-data:www-data ./routes ./routes
+COPY --chown=www-data:www-data ./storage ./storage
+COPY --chown=www-data:www-data ./app ./app
 
 FROM build AS app
+USER www-data
 EXPOSE 9000
 CMD ["php-fpm"]
