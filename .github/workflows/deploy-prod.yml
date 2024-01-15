@@ -38,7 +38,6 @@ jobs:
             cd /home/admin/deployments/deploy-backend-application
             touch .env.new
             echo "IMAGE_TAG=\"$IMAGE_TAG\"" >> .env.new
-            echo "HOST=\"api.talentpulse.nl\"" >> .env.new
             echo "APP_NAME=\"TalentPulse\"" >> .env.new
             echo "APP_ENV=\"production\"" >> .env.new
             echo "APP_KEY=\"$PROD_APP_KEY\"" >> .env.new
@@ -51,6 +50,7 @@ jobs:
             [ -f .env ] && mv .env .env.old
             mv .env.new .env
             touch .env.docker.new
+            echo "HOST=\"api.talentpulse.nl\"" >> .env.docker.new
             echo "MYSQL_DATABASE=\"$MYSQL_DATABASE\"" >> .env.docker.new
             echo "MYSQL_ROOT_PASSWORD=\"$MYSQL_ROOT_PASSWORD\"" >> .env.docker.new
             echo "MYSQL_PASSWORD=\"$MYSQL_PASSWORD\"" >> .env.docker.new
