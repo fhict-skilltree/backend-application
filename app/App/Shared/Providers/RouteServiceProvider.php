@@ -5,12 +5,12 @@ declare(strict_types=1);
 namespace App\Shared\Providers;
 
 use Illuminate\Cache\RateLimiting\Limit;
+use Illuminate\Contracts\Config\Repository as ConfigRepository;
 use Illuminate\Foundation\Support\Providers\RouteServiceProvider as ServiceProvider;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Router;
 use Illuminate\Support\Facades\RateLimiter;
 use OpenApi\Attributes as OA;
-use Illuminate\Contracts\Config\Repository as ConfigRepository;
 
 #[OA\Info(
     version: 'v1.0',

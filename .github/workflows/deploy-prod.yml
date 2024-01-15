@@ -18,6 +18,7 @@ jobs:
           IMAGE_TAG: ${{ inputs.IMAGE_TAG }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           GITHUB_ACTOR: ${{ github.actor }}
+          APP_URL: ${{ secrets.APP_URL }}
           PROD_APP_KEY: ${{ secrets.PROD_APP_KEY }}
           DB_CONNECTION: ${{ secrets.DB_CONNECTION }}
           DB_HOST: ${{ secrets.DB_HOST }}
@@ -31,7 +32,7 @@ jobs:
           key: ${{ secrets.DOCKER_PROD_PRIVATE_KEY }}
           password: ${{ secrets.DOCKER_PROD_PASSWORD }}
           port: 22
-          envs: IMAGE_TAG,GITHUB_TOKEN,GITHUB_ACTOR,PROD_APP_KEY,DB_CONNECTION,DB_HOST,MYSQL_DATABASE,MYSQL_USER,MYSQL_PASSWORD,MYSQL_ROOT_PASSWORD
+          envs: IMAGE_TAG,GITHUB_TOKEN,GITHUB_ACTOR,APP_URL,PROD_APP_KEY,DB_CONNECTION,DB_HOST,MYSQL_DATABASE,MYSQL_USER,MYSQL_PASSWORD,MYSQL_ROOT_PASSWORD
           script: |
             echo $GITHUB_TOKEN | docker login ghcr.io -u $GITHUB_ACTOR --password-stdin
             cd /home/admin/deployments/deploy-backend-application
