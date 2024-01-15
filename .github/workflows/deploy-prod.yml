@@ -49,6 +49,7 @@ jobs:
             [ -f .env ] && mv .env .env.old
             mv .env.new .env
             touch .env.docker.new
+            echo "ENVIRONMENT=\"production\"" >> .env.docker.new
             echo "IMAGE_TAG=\"$IMAGE_TAG\"" >> .env.docker.new
             echo "HOST=\"api.talentpulse.nl\"" >> .env.docker.new
             echo "MYSQL_DATABASE=\"$MYSQL_DATABASE\"" >> .env.docker.new
