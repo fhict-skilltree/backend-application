@@ -1,0 +1,64 @@
+name: Deploy to PROD
+on:
+  workflow_dispatch:
+    inputs:
+      image_tag:
+        description: 'The image tag you wish to deploy.'
+        required: true
+        default: 'main'
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    environment: production
+    steps:
+      - name: Deploy on PROD (talentpulse.nl)
+        uses: appleboy/ssh-action@v0.1.8
+        env:
+          IMAGE_TAG: ${{ inputs.IMAGE_TAG }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_ACTOR: ${{ github.actor }}
+          APP_URL: ${{ secrets.APP_URL }}
+          PROD_APP_KEY: ${{ secrets.PROD_APP_KEY }}
+          DB_CONNECTION: ${{ secrets.DB_CONNECTION }}
+          DB_HOST: ${{ secrets.DB_HOST }}
+          MYSQL_DATABASE: ${{ secrets.MYSQL_DATABASE }}
+          MYSQL_USER: ${{ secrets.MYSQL_USER }}
+          MYSQL_PASSWORD: ${{ secrets.MYSQL_PASSWORD }}
+          MYSQL_ROOT_PASSWORD: ${{ secrets.MYSQL_ROOT_PASSWORD }}
+        with:
+          host: ${{ secrets.DOCKER_PROD_HOST }}
+          username: ${{ secrets.DOCKER_PROD_USER }}
+          key: ${{ secrets.DOCKER_PROD_PRIVATE_KEY }}
+          password: ${{ secrets.DOCKER_PROD_PASSWORD }}
+          port: 22
+          envs: IMAGE_TAG,GITHUB_TOKEN,GITHUB_ACTOR,APP_URL,PROD_APP_KEY,DB_CONNECTION,DB_HOST,MYSQL_DATABASE,MYSQL_USER,MYSQL_PASSWORD,MYSQL_ROOT_PASSWORD
+          script: |
+            echo $GITHUB_TOKEN | docker login ghcr.io -u $GITHUB_ACTOR --password-stdin
+            cd /home/admin/deployments/deploy-backend-application
+            touch .env.new
+            echo "APP_NAME=\"TalentPulse\"" >> .env.new
+            echo "APP_ENV=\"production\"" >> .env.new
+            echo "APP_KEY=\"$PROD_APP_KEY\"" >> .env.new
+            echo "APP_URL=\"$APP_URL\"" >> .env.new
+            echo "DB_CONNECTION=\"$DB_CONNECTION\"" >> .env.new
+            echo "DB_HOST=\"$DB_HOST\"" >> .env.new
+            echo "DB_DATABASE=\"$MYSQL_DATABASE\"" >> .env.new
+            echo "DB_USERNAME=\"$MYSQL_USER\"" >> .env.new
+            echo "DB_PASSWORD=\"$MYSQL_PASSWORD\"" >> .env.new
+            [ -f .env ] && mv .env .env.old
+            mv .env.new .env
+            touch .env.docker.new
+            echo "ENVIRONMENT=\"production\"" >> .env.docker.new
+            echo "IMAGE_TAG=\"$IMAGE_TAG\"" >> .env.docker.new
+            echo "HOST=\"api.talentpulse.nl\"" >> .env.docker.new
+            echo "MYSQL_DATABASE=\"$MYSQL_DATABASE\"" >> .env.docker.new
+            echo "MYSQL_ROOT_PASSWORD=\"$MYSQL_ROOT_PASSWORD\"" >> .env.docker.new
+            echo "MYSQL_PASSWORD=\"$MYSQL_PASSWORD\"" >> .env.docker.new
+            echo "MYSQL_USER=\"$MYSQL_USER\"" >> .env.docker.new
+            [ -f .env.docker ] && mv .env.docker .env.docker.old
+            mv .env.docker.new .env.docker
+            docker compose --env-file .env.docker pull
+            docker compose --env-file .env.docker down php nginx
+            docker compose --env-file .env.docker up -d php nginx
+            docker compose --env-file .env.docker exec php php artisan migrate --force
