@@ -42,6 +42,7 @@ jobs:
             echo "APP_NAME=\"TalentPulse\"" >> .env.new
             echo "APP_ENV=\"production\"" >> .env.new
             echo "APP_KEY=\"$PROD_APP_KEY\"" >> .env.new
+            echo "APP_URL=\"$APP_URL\"" >> .env.new
             echo "DB_CONNECTION=\"$DB_CONNECTION\"" >> .env.new
             echo "DB_HOST=\"$DB_HOST\"" >> .env.new
             echo "DB_DATABASE=\"$MYSQL_DATABASE\"" >> .env.new
