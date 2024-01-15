@@ -57,5 +57,6 @@ COPY --chown=wodby:wodby ./storage ./storage
 COPY --chown=wodby:wodby ./app ./app
 
 FROM build AS app
+USER wodby
 EXPOSE 9000
 CMD ["php-fpm"]
