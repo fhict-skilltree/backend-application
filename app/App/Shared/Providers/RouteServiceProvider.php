@@ -10,6 +10,7 @@ use Illuminate\Http\Request;
 use Illuminate\Routing\Router;
 use Illuminate\Support\Facades\RateLimiter;
 use OpenApi\Attributes as OA;
+use Illuminate\Contracts\Config\Repository as ConfigRepository;
 
 #[OA\Info(
     version: 'v1.0',
@@ -138,15 +139,21 @@ class RouteServiceProvider extends ServiceProvider
             return Limit::perMinute(60)->by($request->user()?->id ?: $request->ip());
         });
 
-        $this->routes(function (Router $router) {
+        /** @var ConfigRepository $configRepository */
+        $configRepository = $this->app->get(ConfigRepository::class);
+
+        $this->routes(function (Router $router) use ($configRepository) {
             $router->middleware('api')
+                ->domain($configRepository->get('app.domain'))
                 ->group(base_path('routes/api.php'));
 
             $router->middleware('api')
                 ->prefix('v1')
+                ->domain($configRepository->get('app.domain'))
                 ->group(base_path('routes/api/v1.php'));
 
             $router->middleware('web')
+                ->domain($configRepository->get('app.domain'))
                 ->group(base_path('routes/web.php'));
         });
     }
