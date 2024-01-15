@@ -25,7 +25,7 @@ RUN  --mount=type=bind,from=mlocati/php-extension-installer:1.5.49,source=/usr/b
           gd \
           exif
 
-COPY ./docker/php/conf.d/php.ini ${PHP_INI_DIR}/conf.d/php.ini
+RUN mv "$PHP_INI_DIR/php.ini-development" "$PHP_INI_DIR/php.ini"
 
 WORKDIR /var/www/html
 
