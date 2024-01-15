@@ -57,7 +57,7 @@ jobs:
             echo "MYSQL_USER=\"$MYSQL_USER\"" >> .env.docker.new
             [ -f .env.docker ] && mv .env.docker .env.docker.old
             mv .env.docker.new .env.docker
-            docker compose pull
-            docker compose down php
-            docker compose --env-file .env.docker up -d php
-            docker compose exec php php artisan migrate --force
+            docker compose --env-file .env.docker pull
+            docker compose --env-file .env.docker down php nginx
+            docker compose --env-file .env.docker up -d php nginx
+            docker compose --env-file .env.docker exec php php artisan migrate --force
