@@ -32,8 +32,8 @@ WORKDIR /var/www/html
 # Composer dependencies
 FROM composer:2.6.6 AS composer_vendor
 WORKDIR /app
-COPY composer.json composer.json
-COPY composer.lock composer.lock
+COPY ./composer.json ./composer.json
+COPY ./composer.lock ./composer.lock
 
 RUN --mount=type=cache,target=/root/.composer/cache composer install \
     --no-interaction \
@@ -46,6 +46,7 @@ FROM base AS build
 COPY ./artisan ./artisan
 COPY ./bootstrap ./bootstrap
 
+COPY ./composer.json ./composer.json
 COPY --from=composer_vendor ./app/vendor/ ./vendor
 
 COPY ./config ./config
